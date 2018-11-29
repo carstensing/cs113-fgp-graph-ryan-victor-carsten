@@ -7,16 +7,15 @@ import java.awt.image.BufferedImage;
 
 public class Game extends JFrame
 {
-    private int fps = 300;
-    private boolean isRunning;
+    private boolean isRunning = true;
     private int windowWidth = 500;
     private int windowHeight = 500;
     private BufferedImage backBuffer;
 
     public static void main(String[] args)
     {
-        Game brickBreaker = new Game();
-        brickBreaker.run();
+        Game game = new Game();
+        game.run();
         System.exit(0);
     }
 
@@ -24,26 +23,43 @@ public class Game extends JFrame
     {
         this.initialize();
 
-        while (isRunning)
-        {
-            long time = System.currentTimeMillis();
+        int fps = 60;
+        double timePerFrame = 1000000000 / fps;
+        long startOfFrame;
+        long endOfFrame = System.nanoTime();
 
-            update();
-            draw();
+        long frameTimer = 0;
+        int frameCounter = 0;
 
-            time = (1000 / fps) - (System.currentTimeMillis() - time);
+        long startOfSecond = 0;
 
-            if (time > 0)
-            {
-                try {
-                    Thread.sleep(time);
-                }
-                catch (InterruptedException e)
-                {
-                }
+        while(isRunning) {
+            startOfFrame = System.nanoTime();
+
+            if (frameCounter == 0) {
+                startOfSecond = System.nanoTime();
+                /*this.tick();
+                this.render();*/
+            }
+
+            if (frameTimer == 0) {
+                //update
+                //render
+            }
+
+            frameTimer += (startOfFrame - endOfFrame);
+            endOfFrame = startOfFrame;
+
+            if (frameTimer >= timePerFrame) {
+                frameTimer = 0;
+                frameCounter++;
+            }
+
+            if (System.nanoTime() - startOfSecond >= 1000000000) {
+                System.out.println(frameCounter);
+                frameCounter = 0;
             }
         }
-
     }
 
     public void initialize()
