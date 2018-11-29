@@ -12,8 +12,6 @@ public class Game extends JFrame
     private int windowWidth = 500;
     private int windowHeight = 500;
     private BufferedImage backBuffer;
-    private Insets insets;
-    private Timer timer;
 
     public static void main(String[] args)
     {
@@ -50,6 +48,7 @@ public class Game extends JFrame
 
     public void initialize()
     {
+
     }
 
     public void update()
@@ -61,7 +60,6 @@ public class Game extends JFrame
     {
         Graphics g = getGraphics();
         Graphics bbg = backBuffer.getGraphics();
-
     }
 
     public int getWindowWidth()
