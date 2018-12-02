@@ -71,4 +71,11 @@ public class Edge {
             return other.source == this.source && other.dest == this.dest;
         }
     }
+    @Override
+    public String toString() {
+        return "Source: " + source+
+                "\nDest.: " + dest+
+                "\nWeight: " + weight;
+    }
+
 }

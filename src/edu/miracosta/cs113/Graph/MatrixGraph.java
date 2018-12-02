@@ -15,6 +15,21 @@ public class MatrixGraph extends AbstractGraph{
     @Override
     public void insert(Edge edge) {
 
+
+        int dest = edge.getDest();
+        int source = edge.getSource();
+
+        //if dest or source int values go past array bounds
+        if(dest >= edges.length || source >= edges.length) {
+            //Throw an error
+        }
+        edges[source][dest] = edge.getWeight();
+
+        //Code below makes the matrix symmetrical if undirected graph
+        if(!isDirected()) {
+            edges[dest][source] = edge.getWeight();
+        }
+
     }
 
     @Override
@@ -24,11 +39,36 @@ public class MatrixGraph extends AbstractGraph{
 
     @Override
     public Edge getEdge(int source, int dest) {
-        return null;
+
+        //if dest or source int values go past array bounds
+        if(dest >= edges.length || source >= edges.length) {
+            //Throw an error
+        }
+        return new Edge(source,dest);
     }
 
     @Override
     public Iterator<Edge> edgeIterator(int source) {
-        return null;
+        return new MatrixIterator();
+    }
+
+    /**
+     * Inner class Iterator
+     *
+     */
+    private class MatrixIterator implements Iterator{
+
+        public MatrixIterator(){
+
+        }
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public Object next() {
+            return null;
+        }
     }
 }
