@@ -12,6 +12,22 @@ public class MatrixGraph extends AbstractGraph{
         }
     }
 
+    /**
+     * Created to see a visual representation of the matrix
+     * Weights are casted to int
+     */
+    public void drawGraph()
+    {
+        for(int i = 0; i < edges.length;i++)
+        {
+            for(int j = 0; j < edges.length; j++)
+            {
+                System.out.print((int)edges[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
     @Override
     public void insert(Edge edge) {
 
