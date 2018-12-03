@@ -1,8 +1,8 @@
 package edu.miracosta.cs113.Graph;
 
 public class Edge {
-    private int dest;
     private int source;
+    private int dest;
     private double weight;
 
     /**
@@ -70,5 +70,14 @@ public class Edge {
             Edge other = (Edge)obj;
             return other.source == this.source && other.dest == this.dest;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Edge{" +
+                "source=" + source +
+                ", dest=" + dest +
+                ", weight=" + weight +
+                '}';
     }
 }
