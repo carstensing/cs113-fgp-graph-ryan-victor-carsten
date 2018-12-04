@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 public class Game extends JFrame
 {
     private boolean isRunning = true;
+    private Map map;
     private int windowWidth = 500;
     private int windowHeight = 500;
     private BufferedImage backBuffer;
@@ -17,6 +18,11 @@ public class Game extends JFrame
         Game game = new Game();
         game.run();
         System.exit(0);
+    }
+
+    public Game() {
+        this.map = new Map();
+        backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
     }
 
     public void run()
@@ -39,12 +45,14 @@ public class Game extends JFrame
             if (frameCounter == 0) {
                 startOfSecond = System.nanoTime();
                 /*this.tick();
-                this.render();*/
+
+                 */
+                draw();
             }
 
             if (frameTimer == 0) {
                 //update
-                //render
+                draw();
             }
 
             frameTimer += (startOfFrame - endOfFrame);
@@ -64,7 +72,10 @@ public class Game extends JFrame
 
     public void initialize()
     {
-
+        setSize(windowWidth, windowHeight);
+        setResizable(false);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
     public void update()
@@ -76,6 +87,13 @@ public class Game extends JFrame
     {
         Graphics g = getGraphics();
         Graphics bbg = backBuffer.getGraphics();
+
+        for (int i = 0; i < map.getWidth(); i ++) {
+            for (int j = 0; j < map.getHeight(); j ++) {
+                bbg.fillRect(i * (windowWidth / map.getWidth()), j * (windowHeight / map.getHeight()), windowWidth / map.getWidth(), windowHeight / map.getHeight());
+            }
+        }
+        g.drawImage(backBuffer,0,0,this);
     }
 
     public int getWindowWidth()
