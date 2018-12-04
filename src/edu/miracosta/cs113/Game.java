@@ -7,28 +7,36 @@ import java.awt.image.BufferedImage;
 
 public class Game extends JFrame
 {
-    private boolean isRunning = true;
+
+    private int windowWidth;
+    private int windowHeight;
+    private String title;
     private Map map;
-    private int windowWidth = 700;
-    private int windowHeight = 700;
     private BufferedImage backBuffer;
+
+    //Input
+    private KeyManager keyManager;
 
     public static void main(String[] args)
     {
-        Game game = new Game();
+        Game game = new Game("Run Away", 500 ,300);
         game.run();
         System.exit(0);
     }
 
-    public Game() {
-        this.map = new Map(20,20);
+    public Game(String title, int windowWidth, int windowHeight) {
+        this.windowWidth = windowWidth;
+        this.windowHeight = windowHeight;
+        this.title = title;
+        keyManager = new KeyManager();
+        this.map = new Map(10,10);
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
     }
 
     public void run()
     {
         this.initialize();
-
+        boolean isRunning = true;
         int fps = 60;
         double timePerFrame = 1000000000 / fps;
         long startOfFrame;
@@ -44,15 +52,11 @@ public class Game extends JFrame
 
             if (frameCounter == 0) {
                 startOfSecond = System.nanoTime();
-                /*this.tick();
-
-                 */
-                draw();
             }
 
             if (frameTimer == 0) {
-                //update
-                draw();
+                this.update();
+                this.draw();
             }
 
             frameTimer += (startOfFrame - endOfFrame);

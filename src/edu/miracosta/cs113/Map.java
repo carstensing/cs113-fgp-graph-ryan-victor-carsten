@@ -5,10 +5,10 @@ import edu.miracosta.cs113.Graph.MatrixGraph;
 import java.awt.*;
 
 public class Map {
-    private static final Tile WALKABLE_TILE = new Tile(Color.WHITE);
-    private static final Tile BARRIER_TILE = new Tile(Color.BLACK);
-    private static final Tile PLAYER_TILE = new Tile(Color.GREEN);
-    private static final Tile ENEMY_TILE = new Tile(Color.RED);
+    public static final Tile WALKABLE_TILE = new Tile(Color.WHITE);
+    public static final Tile BARRIER_TILE = new Tile(Color.BLACK);
+    public static final Tile PLAYER_TILE = new Tile(Color.GREEN);
+    public static final Tile ENEMY_TILE = new Tile(Color.RED);
     private int width;
     private int height;
     private Tile[][] tiles;
