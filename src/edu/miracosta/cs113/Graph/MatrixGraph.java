@@ -1,3 +1,4 @@
+
 package edu.miracosta.cs113.Graph;
 
 import java.util.Iterator;
@@ -10,37 +11,42 @@ public class MatrixGraph extends AbstractGraph{
         if (numV > 0) {
             edges = new double[numV][numV];
         }
-        for (int row = 0; row < numV; row ++) {
-            for (int column = 0; column < numV; column ++) {
-                edges[row][column] = Double.POSITIVE_INFINITY;
+    }
+
+    /**
+     * Created to see a visual representation of the matrix
+     * Weights are casted to int
+     */
+    public void drawGraph()
+    {
+        for(int i = 0; i < edges.length;i++)
+        {
+            for(int j = 0; j < edges.length; j++)
+            {
+                System.out.print((int)edges[i][j] + " ");
             }
+            System.out.println();
         }
     }
 
     @Override
     public void insert(Edge edge) {
-        if (isDirected()) {
-            insertDirected(edge);
-        } else {
-            insertUndirected(edge);
-        }
-    }
 
-    private void insertDirected(Edge edge) {
-        if (isEdgeInBounds(edge)) {
-            edges[edge.getSource()][edge.getDest()] = edge.getWeight();
-        }
-    }
 
-    private void insertUndirected(Edge edge) {
-        if (isEdgeInBounds(edge)) {
-            edges[edge.getSource()][edge.getDest()] = edge.getWeight();
-            edges[edge.getDest()][edge.getSource()] = edge.getWeight();
-        }
-    }
+        int dest = edge.getDest();
+        int source = edge.getSource();
 
-    private boolean isEdgeInBounds(Edge edge) {
-        return edge.getSource() < getNumV() && edge.getDest() < getNumV();
+        //if dest or source int values go past array bounds
+        if(dest >= edges.length || source >= edges.length) {
+            //Throw an error
+        }
+        edges[source][dest] = edge.getWeight();
+
+        //Code below makes the matrix symmetrical if undirected graph
+        if(!isDirected()) {
+            edges[dest][source] = edge.getWeight();
+        }
+
     }
 
     @Override
@@ -50,17 +56,36 @@ public class MatrixGraph extends AbstractGraph{
 
     @Override
     public Edge getEdge(int source, int dest) {
-        if (source < getNumV() && dest < getNumV()) {
-            if (edges[source][dest] != Double.POSITIVE_INFINITY) {
-                return new Edge(source, dest, edges[source][dest]);
-            }
-        }
-        return null;
 
+        //if dest or source int values go past array bounds
+        if(dest >= edges.length || source >= edges.length) {
+            //Throw an error
+        }
+        return new Edge(source,dest);
     }
 
     @Override
     public Iterator<Edge> edgeIterator(int source) {
-        return null;
+        return new MatrixIterator();
+    }
+
+    /**
+     * Inner class Iterator
+     *
+     */
+    private class MatrixIterator implements Iterator{
+
+        public MatrixIterator(){
+
+        }
+        @Override
+        public boolean hasNext() {
+            return false;
+        }
+
+        @Override
+        public Object next() {
+            return null;
+        }
     }
 }
