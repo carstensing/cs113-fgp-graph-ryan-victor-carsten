@@ -5,10 +5,14 @@ import edu.miracosta.cs113.Graph.MatrixGraph;
 import java.awt.*;
 
 public class Map {
-    public static final Tile WALKABLE_TILE = new Tile(Color.WHITE);
-    public static final Tile BARRIER_TILE = new Tile(Color.BLACK);
-    public static final Tile PLAYER_TILE = new Tile(Color.GREEN);
-    public static final Tile ENEMY_TILE = new Tile(Color.RED);
+    public static final int TILE_SIZE = 50;
+    public static final Tile WALKABLE_TILE = new Tile(Color.WHITE, TILE_SIZE, TILE_SIZE);
+    public static final Tile BARRIER_TILE = new Tile(Color.BLACK, TILE_SIZE, TILE_SIZE);
+    public static final Tile PLAYER_TILE = new Tile(Color.GREEN, TILE_SIZE, TILE_SIZE);
+    public static final Tile ENEMY_TILE = new Tile(Color.RED, TILE_SIZE, TILE_SIZE);
+    private Player player;
+    private Enemy[] enemies;
+
     private int width;
     private int height;
     private Tile[][] tiles;
@@ -18,6 +22,7 @@ public class Map {
         this.width = width;
         this.height = height;
         tiles = new Tile[width][height];
+        player = new Player(0,1);
         randomizeMap();
     }
 
@@ -35,6 +40,15 @@ public class Map {
                 }
             }
         }
+        tiles[player.getX()][player.getY()] = PLAYER_TILE;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Enemy[] getEnemies() {
+        return enemies;
     }
 
     public int getWidth() {
