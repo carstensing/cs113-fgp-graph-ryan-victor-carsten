@@ -7,4 +7,11 @@ public class Tile {
     private int width;
     private int height;
 
+    public Tile(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
+    }
 }

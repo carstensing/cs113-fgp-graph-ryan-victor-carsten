@@ -21,7 +21,7 @@ public class Game extends JFrame
     }
 
     public Game() {
-        this.map = new Map();
+        this.map = new Map(10,10);
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
     }
 
@@ -87,10 +87,16 @@ public class Game extends JFrame
     {
         Graphics g = getGraphics();
         Graphics bbg = backBuffer.getGraphics();
+        Tile current;
+        bbg.setColor(Color.BLACK);
+        bbg.drawRect(0,0,windowWidth,windowHeight);
 
+        bbg.setColor(Color.green);
         for (int i = 0; i < map.getWidth(); i ++) {
             for (int j = 0; j < map.getHeight(); j ++) {
-                bbg.fillRect(i * (windowWidth / map.getWidth()), j * (windowHeight / map.getHeight()), windowWidth / map.getWidth(), windowHeight / map.getHeight());
+                current = map.getTile(i,j);
+                bbg.setColor(current.getColor());
+                bbg.fillRect(i * (windowWidth / map.getWidth()), j * (windowHeight / map.getHeight()), windowWidth / map.getWidth() - 2, windowHeight / map.getHeight() - 2);
             }
         }
         g.drawImage(backBuffer,0,0,this);

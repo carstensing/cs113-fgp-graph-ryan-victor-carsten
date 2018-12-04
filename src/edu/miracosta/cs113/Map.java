@@ -2,11 +2,40 @@ package edu.miracosta.cs113;
 
 import edu.miracosta.cs113.Graph.MatrixGraph;
 
+import java.awt.*;
+
 public class Map {
+    private static final Tile WALKABLE_TILE = new Tile(Color.WHITE);
+    private static final Tile BARRIER_TILE = new Tile(Color.BLACK);
+    private static final Tile PLAYER_TILE = new Tile(Color.GREEN);
+    private static final Tile ENEMY_TILE = new Tile(Color.RED);
     private int width;
     private int height;
     private Tile[][] tiles;
     private MatrixGraph graph;
+
+    public Map(int width, int height) {
+        this.width = width;
+        this.height = height;
+        tiles = new Tile[width][height];
+        randomizeMap();
+    }
+
+    public Tile getTile(int x, int y) {
+        return tiles[x][y];
+    }
+
+    public void randomizeMap() {
+        for (int i = 0; i < width; i ++) {
+            for (int j = 0; j < height; j ++) {
+                if (Math.random() * width < width / 5) {
+                    tiles[i][j] = BARRIER_TILE;
+                }else {
+                    tiles[i][j] = WALKABLE_TILE;
+                }
+            }
+        }
+    }
 
     public int getWidth() {
         return width;
