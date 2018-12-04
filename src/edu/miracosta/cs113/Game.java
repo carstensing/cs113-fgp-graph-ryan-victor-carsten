@@ -11,6 +11,7 @@ public class Game extends JFrame
     private int windowWidth;
     private int windowHeight;
     private String title;
+    private Map map;
     private BufferedImage backBuffer;
 
     //Input
@@ -28,6 +29,8 @@ public class Game extends JFrame
         this.windowHeight = windowHeight;
         this.title = title;
         keyManager = new KeyManager();
+        this.map = new Map(10,10);
+        backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
     }
 
     public void run()
@@ -74,7 +77,10 @@ public class Game extends JFrame
 
     public void initialize()
     {
-
+        setSize(windowWidth, windowHeight);
+        setResizable(false);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
     }
 
     public void update()
@@ -86,6 +92,19 @@ public class Game extends JFrame
     {
         Graphics g = getGraphics();
         Graphics bbg = backBuffer.getGraphics();
+        Tile current;
+        bbg.setColor(Color.BLACK);
+        bbg.drawRect(0,0,windowWidth,windowHeight);
+
+        bbg.setColor(Color.green);
+        for (int i = 0; i < map.getWidth(); i ++) {
+            for (int j = 0; j < map.getHeight(); j ++) {
+                current = map.getTile(i,j);
+                bbg.setColor(current.getColor());
+                bbg.fillRect(i * (windowWidth / map.getWidth()), j * (windowHeight / map.getHeight()), windowWidth / map.getWidth() - 2, windowHeight / map.getHeight() - 2);
+            }
+        }
+        g.drawImage(backBuffer,0,0,this);
     }
 
     public int getWindowWidth()
