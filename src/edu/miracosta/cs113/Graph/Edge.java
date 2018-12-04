@@ -76,6 +76,6 @@ public class Edge {
     public String toString() {
         return "Source: " + source+
                 "\nDest.: " + dest+
-                "\nWeight: " + weight;
+                "\nWeight: " + weight+"\n";
     }
 }
