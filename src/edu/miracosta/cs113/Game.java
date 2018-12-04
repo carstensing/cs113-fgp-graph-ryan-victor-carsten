@@ -9,8 +9,8 @@ public class Game extends JFrame
 {
     private boolean isRunning = true;
     private Map map;
-    private int windowWidth = 500;
-    private int windowHeight = 500;
+    private int windowWidth = 700;
+    private int windowHeight = 700;
     private BufferedImage backBuffer;
 
     public static void main(String[] args)
@@ -21,7 +21,7 @@ public class Game extends JFrame
     }
 
     public Game() {
-        this.map = new Map(10,10);
+        this.map = new Map(20,20);
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
     }
 
