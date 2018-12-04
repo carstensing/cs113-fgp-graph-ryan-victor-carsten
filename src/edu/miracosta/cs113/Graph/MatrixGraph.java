@@ -1,5 +1,6 @@
 package edu.miracosta.cs113.Graph;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class MatrixGraph extends AbstractGraph{
@@ -87,4 +88,62 @@ public class MatrixGraph extends AbstractGraph{
             return null;
         }
     }
+
+    /**
+     * Reads the relationships between vertices from a graph
+     * @return  All the connections
+     */
+    public ArrayList<Edge> readConnections()
+    {
+        if(isDirected())
+        {
+            return readDirectedConnections();
+        }
+        else
+        {
+            return readUndirectedConnections();
+        }
+
+    }
+
+    /**
+     * Reads the relationships between vertices from a directed graph
+     * @return  All the connections
+     */
+    private ArrayList<Edge> readDirectedConnections()
+    {
+        ArrayList<Edge> array = new ArrayList<Edge>();
+        for(int i = 0; i < edges.length;i++)
+        {
+            for(int j = 0; j < edges.length;j++)
+            {
+                if((int)edges[i][j] == 1)
+                {
+                    array.add(new Edge(i,j));
+                }
+            }
+        }
+        return array;
+    }
+    /**
+     * Reads the relationships between vertices from a undirected graph
+     * But only reads half of the matrix
+     * @return  half of the connections
+     */
+    private ArrayList<Edge> readUndirectedConnections()
+    {
+        ArrayList<Edge> array = new ArrayList<Edge>();
+        for(int i = 0; i < edges.length;i++)
+        {
+            for(int j = 0; j < i;j++)
+            {
+                if((int)edges[i][j] == 1)
+                {
+                    array.add(new Edge(i,j));
+                }
+            }
+        }
+        return array;
+    }
+
 }
