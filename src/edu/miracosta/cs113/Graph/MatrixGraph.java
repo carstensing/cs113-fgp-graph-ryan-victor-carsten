@@ -3,6 +3,7 @@ package edu.miracosta.cs113.Graph;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class MatrixGraph extends AbstractGraph{
     double[][] edges;
@@ -167,7 +168,7 @@ public class MatrixGraph extends AbstractGraph{
         }
         return array;
     }
-    public void dijkstrasAlgorith(int start,int pred[],double[] dist)
+    public void dijkstrasAlgorith(int start,int[] pred,double[] dist)
     {
         int numV = getNumV();
         HashSet<Integer> vMinuesS = new HashSet<Integer>(numV);
@@ -208,8 +209,6 @@ public class MatrixGraph extends AbstractGraph{
 
                 }
             }
-            System.out.println("u = " +u );
-
             //Remove u from v minus
             vMinuesS.remove(u);
             //update the distance
@@ -229,4 +228,23 @@ public class MatrixGraph extends AbstractGraph{
             }
         }
     }
+    public int[] getSingleShortestPath(int start, int end,int[] pred)
+    {
+        Stack<Integer> stack = new Stack<Integer>();
+        stack.push(end);
+        while(end != start)
+        {
+            //Pushing te predecesor of the end where you want to go
+            //And works backwards
+            stack.push(end);
+            end = pred[end];
+        }
+        int[] array = new int[stack.size()-1];
+        for(int i = 0; i < stack.size()+1;i++)
+        {
+            array[i] = stack.pop();
+        }
+        return array;
+    }
+
 }

@@ -22,10 +22,11 @@ public class Driver {
 
             graph.dijkstrasAlgorith(0,pred,dist);
 
+            int[] path = graph.getSingleShortestPath(0,4,pred);
 
-            for(int i = 0; i <pred.length; i++)
+            for(int i = 0; i <path.length; i++)
             {
-                System.out.println(""+(i) +" " + pred[i]);
+                System.out.println(""+(i) +" " + path[i]);
             }
 
         }
