@@ -1,6 +1,7 @@
 package edu.miracosta.cs113.Graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 public class MatrixGraph extends AbstractGraph{
@@ -11,6 +12,16 @@ public class MatrixGraph extends AbstractGraph{
         if (numV > 0) {
             edges = new double[numV][numV];
         }
+        /**
+         * Filling in array with Positive Infinitive
+         */
+        for(int i = 0; i < numV; i++)
+        {
+            for(int j = 0;j < numV; j++)
+            {
+                edges[i][j] = Double.POSITIVE_INFINITY;
+            }
+        }
     }
 
     /**
@@ -19,11 +30,22 @@ public class MatrixGraph extends AbstractGraph{
      */
     public void drawGraph()
     {
+
+        System.out.println("Zeros represent Positive Infinity");
         for(int i = 0; i < edges.length;i++)
         {
+
             for(int j = 0; j < edges.length; j++)
             {
-                System.out.print((int)edges[i][j] + " ");
+                if(edges[i][j] == Double.POSITIVE_INFINITY)
+                {
+                    System.out.print("0\t");
+                }
+                else
+                {
+                    System.out.print((int)edges[i][j] + "\t");
+                }
+
             }
             System.out.println();
         }
@@ -61,7 +83,7 @@ public class MatrixGraph extends AbstractGraph{
         if(dest >= edges.length || source >= edges.length) {
             //Throw an error
         }
-        return new Edge(source,dest);
+        return new Edge(source,dest,edges[source][dest]);
     }
 
     @Override
@@ -117,9 +139,9 @@ public class MatrixGraph extends AbstractGraph{
         {
             for(int j = 0; j < edges.length;j++)
             {
-                if((int)edges[i][j] == 1)
+                if(edges[i][j] > 0)
                 {
-                    array.add(new Edge(i,j));
+                    array.add(new Edge(i,j,edges[i][j]));
                 }
             }
         }
@@ -127,7 +149,7 @@ public class MatrixGraph extends AbstractGraph{
     }
     /**
      * Reads the relationships between vertices from a undirected graph
-     * But only reads half of the matrix
+     * But only reads half of the matrix and creates an array of all the edges
      * @return  half of the connections
      */
     private ArrayList<Edge> readUndirectedConnections()
@@ -137,13 +159,74 @@ public class MatrixGraph extends AbstractGraph{
         {
             for(int j = 0; j < i;j++)
             {
-                if((int)edges[i][j] == 1)
+                if(edges[i][j] > 0)
                 {
-                    array.add(new Edge(i,j));
+                    array.add(new Edge(i,j,edges[i][j]));
                 }
             }
         }
         return array;
     }
+    public void dijkstrasAlgorith(int start,int pred[],double[] dist)
+    {
+        int numV = getNumV();
+        HashSet<Integer> vMinuesS = new HashSet<Integer>(numV);
+        //Initialize V-S
+        for(int i = 0;i<numV;i++ )
+        {
+            if(i != start)
+            {
+                vMinuesS.add(i);
+            }
+        }
+        //Initialize pred and dist
+        for(int vertices:vMinuesS)
+        {
+            pred[vertices] = start;
 
+            //Not sure if this line of code should be here
+            //Because it is assuming the start is connected to every vertex
+            dist[vertices] = getEdge(start,vertices).getWeight();
+        }
+
+        //Main loop
+        while(vMinuesS.size() != 0)
+        {
+            //find value u in V-S with the smallest dist[u]
+            double minDist = Double.POSITIVE_INFINITY;
+            int u = -1;
+
+
+
+            for(int vertex : vMinuesS)
+            {
+
+                if(dist[vertex] < minDist)
+                {
+                    minDist = dist[vertex];
+                    u = vertex;
+
+                }
+            }
+            System.out.println("u = " +u );
+
+            //Remove u from v minus
+            vMinuesS.remove(u);
+            //update the distance
+            for(int v: vMinuesS)
+            {
+                if(isEdge(u,v))
+                {
+                    double weight = getEdge(u,v).getWeight();
+                    if(dist[u] + weight < dist[v])
+                    {
+
+
+                        dist[v] = dist[u] + weight;
+                        pred[v] = u;
+                    }
+                }
+            }
+        }
+    }
 }
