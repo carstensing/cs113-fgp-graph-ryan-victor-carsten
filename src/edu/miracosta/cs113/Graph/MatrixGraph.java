@@ -1,5 +1,7 @@
 package edu.miracosta.cs113.Graph;
 
+import edu.miracosta.cs113.Map;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -24,6 +26,56 @@ public class MatrixGraph extends AbstractGraph{
             }
         }
     }
+
+    public MatrixGraph(Map map) {
+        super(map.getRows() * map.getColumns(), false);
+        edges = new double[getNumV()][getNumV()];
+        boolean isBarrier = false;
+        int currentIndex, upIndex, downIndex, leftIndex, rightIndex;
+        for (int i = 0; i < map.getRows(); i ++) {
+            for (int j = 0; j < map.getColumns(); j ++) {
+                currentIndex = map.get1DIndex(i,j);
+                if (map.getTile(i,j) == Map.BARRIER_TILE) {
+                    isBarrier = true;
+                } else {
+                    isBarrier = false;
+                }
+                if (j - 1 > -1 && j - 1 < map.getColumns()) {
+                    upIndex = map.get1DIndex(i, j - 1);
+                    if (map.getTile(i, j - 1) != Map.BARRIER_TILE && !isBarrier) {
+                        insert(new Edge(currentIndex, upIndex, 1.0));
+                    } else {
+                        insert(new Edge(currentIndex, upIndex, Double.POSITIVE_INFINITY));
+                    }
+                }
+                if (j + 1 < map.getColumns()) {
+                    downIndex = map.get1DIndex(i, j + 1);
+                    if (map.getTile(i,j + 1) != Map.BARRIER_TILE && !isBarrier) {
+                        insert(new Edge(currentIndex, downIndex, 1.0));
+                    } else {
+                        insert(new Edge(currentIndex, downIndex, Double.POSITIVE_INFINITY));
+                    }
+                }
+                if (i - 1 > -1 && i - 1 < map.getRows()) {
+                    leftIndex = map.get1DIndex(i - 1, j);
+                    if (map.getTile(i -1, j) != Map.BARRIER_TILE && !isBarrier) {
+                        insert(new Edge(currentIndex, leftIndex, 1.0));
+                    } else {
+                        insert(new Edge(currentIndex, leftIndex, Double.POSITIVE_INFINITY));
+                    }
+                }
+                if (i + 1 < map.getRows()) {
+                    rightIndex = map.get1DIndex(i + 1, j);
+                    if (map.getTile(i + 1, j) != Map.BARRIER_TILE && !isBarrier) {
+                        insert(new Edge(currentIndex, rightIndex, 1.0));
+                    } else {
+                        insert(new Edge(currentIndex, rightIndex, Double.POSITIVE_INFINITY));
+                    }
+                }
+            }
+        }
+    }
+
 
     /**
      * Created to see a visual representation of the matrix
@@ -168,6 +220,13 @@ public class MatrixGraph extends AbstractGraph{
         }
         return array;
     }
+
+    /**
+     * This runs dijkstras algorithm
+     * @param start     Staring vertex where all paths will be based from
+     * @param pred      An array that stores int references to a vertex from another
+     * @param dist      The Total distance from a vertex to the starting vertex
+     */
     public void dijkstrasAlgorith(int start,int[] pred,double[] dist)
     {
         int numV = getNumV();
@@ -212,29 +271,38 @@ public class MatrixGraph extends AbstractGraph{
             //Remove u from v minus
             vMinuesS.remove(u);
             //update the distance
-            for(int v: vMinuesS)
+            for(int vertex: vMinuesS)
             {
-                if(isEdge(u,v))
+                if(isEdge(u,vertex))
                 {
-                    double weight = getEdge(u,v).getWeight();
-                    if(dist[u] + weight < dist[v])
+                    double weight = getEdge(u,vertex).getWeight();
+                    if(dist[u] + weight < dist[vertex])
                     {
 
 
-                        dist[v] = dist[u] + weight;
-                        pred[v] = u;
+                        dist[vertex] = dist[u] + weight;
+                        pred[vertex] = u;
                     }
                 }
             }
         }
     }
+
+    /**
+     * In order to run this method Dikstras must be ran first to obtain all paths fom a vertex
+     * What this method does is simply backtrack dijkstra from the end vertex you want to reach to your current location
+     * @param start     Staring point or vertex
+     * @param end       The target location where you want to be
+     * @param pred      The array that holds the way to get to start to end
+     * @return          an array that has the path to get to your single end point
+     */
     public int[] getSingleShortestPath(int start, int end,int[] pred)
     {
         Stack<Integer> stack = new Stack<Integer>();
         stack.push(end);
         while(end != start)
         {
-            //Pushing te predecesor of the end where you want to go
+            //Pushing te predecessor of the end where you want to go
             //And works backwards
             stack.push(end);
             end = pred[end];
