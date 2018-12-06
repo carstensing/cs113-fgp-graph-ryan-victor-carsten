@@ -2,6 +2,8 @@ package edu.miracosta.cs113;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class Game extends JFrame
@@ -12,10 +14,7 @@ public class Game extends JFrame
     private String title;
     private Map map;
     private BufferedImage backBuffer;
-
-    //Input
-    private KeyManager keyManager;
-
+    
     public static void main(String[] args)
     {
         Game game = new Game("Run Away");
@@ -28,7 +27,6 @@ public class Game extends JFrame
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         this.title = title;
-        keyManager = new KeyManager();
         this.map = new Map(10,10);
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
     }
@@ -36,7 +34,6 @@ public class Game extends JFrame
     public Game(String title) {
         super();
         this.title = title;
-        keyManager = new KeyManager();
         this.map = new Map(10,10);
         this.windowWidth = map.getWidth() * Map.TILE_SIZE;
         this.windowHeight = map.getHeight() * Map.TILE_SIZE;
@@ -90,26 +87,38 @@ public class Game extends JFrame
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-        this.addKeyListener(keyManager);
+        this.addKeyListener(new KeyListener() {
+            Player player = map.getPlayer();
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_S) {
+                    player.move(0, 1, map);
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_W) {
+                    player.move(0, -1, map);
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_A) {
+                    player.move(-1, 0, map);
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_D) {
+                    player.move(1, 0, map);
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
     }
 
     public void update()
     {
-        keyManager.tick();
-        Player player = map.getPlayer();
-
-        if (keyManager.down) {
-            player.move(0, 1, map);
-        }
-        else if (keyManager.up) {
-            player.move(0, -1, map);
-        }
-        else if (keyManager.left) {
-            player.move(-1, 0, map);
-        }
-        else if (keyManager.right) {
-            player.move(1, 0, map);
-        }
 
     }
 
