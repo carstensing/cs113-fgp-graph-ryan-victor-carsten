@@ -168,6 +168,13 @@ public class MatrixGraph extends AbstractGraph{
         }
         return array;
     }
+
+    /**
+     * This runs dijkstras algorithm
+     * @param start     Staring vertex where all paths will be based from
+     * @param pred      An array that stores int references to a vertex from another
+     * @param dist      The Total distance from a vertex to the starting vertex
+     */
     public void dijkstrasAlgorith(int start,int[] pred,double[] dist)
     {
         int numV = getNumV();
@@ -212,22 +219,31 @@ public class MatrixGraph extends AbstractGraph{
             //Remove u from v minus
             vMinuesS.remove(u);
             //update the distance
-            for(int v: vMinuesS)
+            for(int vertex: vMinuesS)
             {
-                if(isEdge(u,v))
+                if(isEdge(u,vertex))
                 {
-                    double weight = getEdge(u,v).getWeight();
-                    if(dist[u] + weight < dist[v])
+                    double weight = getEdge(u,vertex).getWeight();
+                    if(dist[u] + weight < dist[vertex])
                     {
 
 
-                        dist[v] = dist[u] + weight;
-                        pred[v] = u;
+                        dist[vertex] = dist[u] + weight;
+                        pred[vertex] = u;
                     }
                 }
             }
         }
     }
+
+    /**
+     * In order to run this method Dikstras must be ran first to obtain all paths fom a vertex
+     * What this method does is simply backtrack dijkstra from the end vertex you want to reach to your current location
+     * @param start     Staring point or vertex
+     * @param end       The target location where you want to be
+     * @param pred      The array that holds the way to get to start to end
+     * @return          an array that has the path to get to your single end point
+     */
     public int[] getSingleShortestPath(int start, int end,int[] pred)
     {
         Stack<Integer> stack = new Stack<Integer>();
