@@ -24,10 +24,10 @@ public class Driver {
 
             int[] path = graph.getSingleShortestPath(0,4,pred);
 
-            for(int i = 0; i <path.length; i++)
-            {
-                System.out.println(""+(i) +" " + path[i]);
-            }
+
+
+
+
 
         }
 }

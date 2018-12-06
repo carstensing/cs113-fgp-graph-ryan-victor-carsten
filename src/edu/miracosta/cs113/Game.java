@@ -37,7 +37,7 @@ public class Game extends JFrame
         super();
         this.title = title;
         keyManager = new KeyManager();
-        this.map = new Map(10,10);
+        this.map = new Map();//new Map(10,10);
         this.windowWidth = map.getWidth() * Map.TILE_SIZE;
         this.windowHeight = map.getHeight() * Map.TILE_SIZE;
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
