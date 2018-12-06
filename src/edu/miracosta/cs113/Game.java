@@ -2,7 +2,6 @@ package edu.miracosta.cs113;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 public class Game extends JFrame
