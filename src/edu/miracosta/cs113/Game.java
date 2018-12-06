@@ -19,12 +19,13 @@ public class Game extends JFrame
 
     public static void main(String[] args)
     {
-        Game game = new Game("Run Away", 500 ,300);
+        Game game = new Game("Run Away");
         game.run();
         System.exit(0);
     }
 
     public Game(String title, int windowWidth, int windowHeight) {
+        super();
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         this.title = title;
@@ -33,10 +34,19 @@ public class Game extends JFrame
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
     }
 
+    public Game(String title) {
+        super();
+        this.title = title;
+        keyManager = new KeyManager();
+        this.map = new Map(10,10);
+        this.windowWidth = map.getWidth() * Map.TILE_SIZE;
+        this.windowHeight = map.getHeight() * Map.TILE_SIZE;
+        backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
+    }
+
     public void run()
     {
         this.initialize();
-
         boolean isRunning = true;
         int fps = 60;
         double timePerFrame = 1000000000 / fps;
@@ -81,10 +91,26 @@ public class Game extends JFrame
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+        this.addKeyListener(keyManager);
     }
 
     public void update()
     {
+        keyManager.tick();
+        Player player = map.getPlayer();
+
+        if (keyManager.down) {
+            player.move(0, 1, map);
+        }
+        else if (keyManager.up) {
+            player.move(0, -1, map);
+        }
+        else if (keyManager.left) {
+            player.move(-1, 0, map);
+        }
+        else if (keyManager.right) {
+            player.move(1, 0, map);
+        }
 
     }
 
@@ -96,12 +122,11 @@ public class Game extends JFrame
         bbg.setColor(Color.BLACK);
         bbg.drawRect(0,0,windowWidth,windowHeight);
 
-        bbg.setColor(Color.green);
         for (int i = 0; i < map.getWidth(); i ++) {
             for (int j = 0; j < map.getHeight(); j ++) {
                 current = map.getTile(i,j);
                 bbg.setColor(current.getColor());
-                bbg.fillRect(i * (windowWidth / map.getWidth()), j * (windowHeight / map.getHeight()), windowWidth / map.getWidth() - 2, windowHeight / map.getHeight() - 2);
+                bbg.fillRect(i * current.getWidth(), j * current.getHeight(), current.getWidth() - 1, current.getHeight() - 1);
             }
         }
         g.drawImage(backBuffer,0,0,this);
