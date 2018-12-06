@@ -250,7 +250,7 @@ public class MatrixGraph extends AbstractGraph{
         stack.push(end);
         while(end != start)
         {
-            //Pushing te predecesor of the end where you want to go
+            //Pushing te predecessor of the end where you want to go
             //And works backwards
             stack.push(end);
             end = pred[end];

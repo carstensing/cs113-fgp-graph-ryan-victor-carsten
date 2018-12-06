@@ -5,7 +5,7 @@ import edu.miracosta.cs113.Graph.MatrixGraph;
 import java.awt.*;
 
 public class Map {
-    public static final int TILE_SIZE = 50;
+    public static final int TILE_SIZE = 30;
     public static final Tile WALKABLE_TILE = new Tile(Color.WHITE, TILE_SIZE, TILE_SIZE);
     public static final Tile BARRIER_TILE = new Tile(Color.BLACK, TILE_SIZE, TILE_SIZE);
     public static final Tile PLAYER_TILE = new Tile(Color.GREEN, TILE_SIZE, TILE_SIZE);

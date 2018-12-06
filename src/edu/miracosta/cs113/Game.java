@@ -14,7 +14,7 @@ public class Game extends JFrame
     private String title;
     private Map map;
     private BufferedImage backBuffer;
-    
+
     public static void main(String[] args)
     {
         Game game = new Game("Run Away");
