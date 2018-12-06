@@ -3,6 +3,7 @@ package edu.miracosta.cs113;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 
 public class Game extends JFrame
@@ -38,7 +39,7 @@ public class Game extends JFrame
         super();
         this.title = title;
         keyManager = new KeyManager();
-        this.map = new Map(10,10);
+        this.map = new Map(15,15);
         this.windowWidth = map.getWidth() * Map.TILE_SIZE;
         this.windowHeight = map.getHeight() * Map.TILE_SIZE;
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
@@ -91,7 +92,36 @@ public class Game extends JFrame
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-        this.addKeyListener(keyManager);
+        setBackground(Color.BLACK);
+        this.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                Player player = map.getPlayer();
+                if (e.getKeyCode() == KeyEvent.VK_UP) {
+                    player.move(0,-1,map);
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+                    player.move(0,1,map);
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                    player.move(1,0,map);
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                    player.move(-1,0,map);
+                }
+
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
     }
 
     public void update()
@@ -119,8 +149,6 @@ public class Game extends JFrame
         Graphics g = getGraphics();
         Graphics bbg = backBuffer.getGraphics();
         Tile current;
-        bbg.setColor(Color.BLACK);
-        bbg.drawRect(0,0,windowWidth,windowHeight);
 
         for (int i = 0; i < map.getWidth(); i ++) {
             for (int j = 0; j < map.getHeight(); j ++) {

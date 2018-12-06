@@ -34,7 +34,7 @@ public class KeyManager implements KeyListener {
     public void keyPressed(KeyEvent e) {
         keys[e.getKeyCode()] = true;
 
-        //System.out.println("keyCode = " + e.getKeyCode());
+//        System.out.println("keyCode = " + e.getKeyCode());
 
         if(up) {
             upHold++;

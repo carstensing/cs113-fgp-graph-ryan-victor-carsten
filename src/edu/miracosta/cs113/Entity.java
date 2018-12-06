@@ -1,5 +1,6 @@
 package edu.miracosta.cs113;
 
+
 public class Entity {
     private int x;
     private int y;
@@ -17,10 +18,10 @@ public class Entity {
     public void move(int dx, int dy, Map map) {
         if (x + dx < map.getWidth() && x + dx > -1 && y + dy < map.getHeight() && y + dy > -1) {
             if (map.getTile(x + dx, y + dy) == Map.WALKABLE_TILE) {
-                map.getTiles()[x + dx][y + dy] = Map.PLAYER_TILE;
-                map.getTiles()[x][y] = Map.WALKABLE_TILE;
                 this.x = x + dx;
                 this.y = y + dy;
+                map.getTiles()[x][y] = Map.PLAYER_TILE;
+                map.getTiles()[x - dx][y - dy] = Map.WALKABLE_TILE;
             }
         }
     }
