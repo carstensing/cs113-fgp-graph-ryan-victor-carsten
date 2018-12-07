@@ -23,17 +23,10 @@ public class Driver {
 
             int[] path = graph.getSingleShortestPath(0,4,pred);
 
-            int[] array = graph.getPath(0,4);
-            for(int i = 0; i < path.length;i++)
-            {
-                System.out.println(path[i]);
-            }
-            System.out.println("Should work");
-            for(int i = 0; i < array.length;i++)
-            {
-
-                System.out.println(array[i]);
-            }
+            Map map = new Map();
+            MatrixGraph graph1 = new MatrixGraph(map);
+            System.out.println(graph1.getNumV());
+            graph1.drawGraph();
 
 
 

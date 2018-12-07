@@ -28,10 +28,12 @@ Complete the `Graph` class, either as an adjacency list or adjacency matrix, per
 > - Create and use Trello boards, Slack, etc. to help you all communicate and organize yourselves
 
 ## Project proposal/description:
-[insert paragraph here]
+We are going to make a maze game. The player(green box) is supposed to run away from enemies(red boxes) The purpose of the game is
+to survive the longest without being touched by the enemies. As soon as the player is touched the game will come to an end.
+ 
 
 ## Graph algorithm used:
-[insert name of algorithm here and how it's used]
+With this game we are using dijkstra algorithm. The algorithm is used in the movement of the enemy for pathfinding.
 
 ## Screenshot(s):
 [insert image(s) here to show main use/screen of program]

@@ -110,7 +110,7 @@ public class MatrixGraph extends AbstractGraph{
 
         //if dest or source int values go past array bounds
         if(dest >= edges.length || source >= edges.length) {
-            //Throw an error
+            throw new ArrayIndexOutOfBoundsException();
         }
         edges[source][dest] = edge.getWeight();
 
@@ -131,7 +131,7 @@ public class MatrixGraph extends AbstractGraph{
 
         //if dest or source int values go past array bounds
         if(dest >= edges.length || source >= edges.length) {
-            //Throw an error
+            throw new ArrayIndexOutOfBoundsException();
         }
         return new Edge(source,dest,edges[source][dest]);
     }
