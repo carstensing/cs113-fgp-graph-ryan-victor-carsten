@@ -33,7 +33,7 @@ to survive the longest without being touched by the enemies. As soon as the play
  
 
 ## Graph algorithm used:
-With this game we are using dijkstra algorithm. The algorithm is used in the movement of the enemy through pathfinding.
+With this game we are using dijkstra algorithm. The algorithm is used in the movement of the enemy for pathfinding.
 
 ## Screenshot(s):
 [insert image(s) here to show main use/screen of program]
