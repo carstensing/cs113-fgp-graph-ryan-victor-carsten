@@ -1,7 +1,6 @@
 package edu.miracosta.cs113;
 
 
-
 public class Enemy extends Entity {
 
     public Enemy() {

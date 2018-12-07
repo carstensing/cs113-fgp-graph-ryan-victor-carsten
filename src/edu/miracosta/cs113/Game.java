@@ -114,6 +114,11 @@ public class Game extends JFrame
                 else if (e.getKeyCode() == KeyEvent.VK_D) {
                     player.move(0, 1, map);
                 }
+                else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    for (Enemy enemy: map.getEnemies()) {
+                        enemy.moveTowardsPlayer(map);
+                    }
+                }
             }
 
             @Override
@@ -125,9 +130,7 @@ public class Game extends JFrame
 
     public void update()
     {
-        for (Enemy enemy: map.getEnemies()) {
-            enemy.moveTowardsPlayer(map);
-        }
+
     }
 
     public void draw()
