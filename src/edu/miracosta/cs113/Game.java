@@ -1,6 +1,7 @@
 package edu.miracosta.cs113;
 
 import edu.miracosta.cs113.Graph.MatrixGraph;
+import edu.miracosta.cs113.Timer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,7 @@ public class Game extends JFrame
     private int windowHeight;
     private Map map;
     private BufferedImage backBuffer;
+    private Timer timer;
 
     public static void main(String[] args)
     {
@@ -39,8 +41,6 @@ public class Game extends JFrame
         this.windowWidth = map.getRows() * Map.TILE_SIZE;
         this.windowHeight = map.getColumns() * Map.TILE_SIZE;
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
-        MatrixGraph graph = new MatrixGraph(map);
-        graph.drawGraph();
     }
 
     public void run()
@@ -87,6 +87,7 @@ public class Game extends JFrame
     public void initialize()
     {
         setSize(windowWidth,windowHeight);
+        timer = new Timer();
         setResizable(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -123,7 +124,9 @@ public class Game extends JFrame
 
     public void update()
     {
-
+        for (Enemy enemy: map.getEnemies()) {
+            enemy.moveTowardsPlayer(map);
+        }
     }
 
     public void draw()

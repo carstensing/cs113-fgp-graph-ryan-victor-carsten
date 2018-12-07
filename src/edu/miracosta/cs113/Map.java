@@ -32,6 +32,7 @@ public class Map {
     {
         enemies = new ArrayList<>();
         readFile("DefaultMap.txt");
+        graph = new MatrixGraph(this);
     }
 
     public Tile getTile(int x, int y) {

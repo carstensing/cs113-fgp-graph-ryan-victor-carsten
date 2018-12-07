@@ -35,14 +35,14 @@ public class MatrixGraph extends AbstractGraph{
         for (int i = 0; i < map.getRows(); i ++) {
             for (int j = 0; j < map.getColumns(); j ++) {
                 currentIndex = map.get1DIndex(i,j);
-                if (map.getTile(i,j) == Map.BARRIER_TILE) {
+                if (map.getTile(i,j) == Map.BARRIER_TILE || map.getTile(i,j) == Map.ENEMY_TILE) {
                     isBarrier = true;
                 } else {
                     isBarrier = false;
                 }
                 if (j - 1 > -1 && j - 1 < map.getColumns()) {
                     upIndex = map.get1DIndex(i, j - 1);
-                    if (map.getTile(i, j - 1) != Map.BARRIER_TILE && !isBarrier) {
+                    if (map.getTile(i, j - 1) != Map.BARRIER_TILE && map.getTile(i, j - 1) != Map.ENEMY_TILE && !isBarrier) {
                         insert(new Edge(currentIndex, upIndex, 1.0));
                     } else {
                         insert(new Edge(currentIndex, upIndex, Double.POSITIVE_INFINITY));
@@ -50,7 +50,7 @@ public class MatrixGraph extends AbstractGraph{
                 }
                 if (j + 1 < map.getColumns()) {
                     downIndex = map.get1DIndex(i, j + 1);
-                    if (map.getTile(i,j + 1) != Map.BARRIER_TILE && !isBarrier) {
+                    if (map.getTile(i,j + 1) != Map.BARRIER_TILE && map.getTile(i,j + 1) != Map.ENEMY_TILE && !isBarrier) {
                         insert(new Edge(currentIndex, downIndex, 1.0));
                     } else {
                         insert(new Edge(currentIndex, downIndex, Double.POSITIVE_INFINITY));
@@ -58,7 +58,7 @@ public class MatrixGraph extends AbstractGraph{
                 }
                 if (i - 1 > -1 && i - 1 < map.getRows()) {
                     leftIndex = map.get1DIndex(i - 1, j);
-                    if (map.getTile(i -1, j) != Map.BARRIER_TILE && !isBarrier) {
+                    if (map.getTile(i -1, j) != Map.BARRIER_TILE && map.getTile(i -1, j) != Map.ENEMY_TILE && !isBarrier) {
                         insert(new Edge(currentIndex, leftIndex, 1.0));
                     } else {
                         insert(new Edge(currentIndex, leftIndex, Double.POSITIVE_INFINITY));
@@ -66,7 +66,7 @@ public class MatrixGraph extends AbstractGraph{
                 }
                 if (i + 1 < map.getRows()) {
                     rightIndex = map.get1DIndex(i + 1, j);
-                    if (map.getTile(i + 1, j) != Map.BARRIER_TILE && !isBarrier) {
+                    if (map.getTile(i + 1, j) != Map.BARRIER_TILE && map.getTile(i + 1, j) != Map.ENEMY_TILE && !isBarrier) {
                         insert(new Edge(currentIndex, rightIndex, 1.0));
                     } else {
                         insert(new Edge(currentIndex, rightIndex, Double.POSITIVE_INFINITY));
@@ -227,7 +227,7 @@ public class MatrixGraph extends AbstractGraph{
      * @param pred      An array that stores int references to a vertex from another
      * @param dist      The Total distance from a vertex to the starting vertex
      */
-    public void dijkstrasAlgorith(int start,int[] pred,double[] dist)
+    public void dijkstrasAlgorithm(int start,int[] pred,double[] dist)
     {
         int numV = getNumV();
         HashSet<Integer> vMinuesS = new HashSet<Integer>(numV);
@@ -314,5 +314,4 @@ public class MatrixGraph extends AbstractGraph{
         }
         return array;
     }
-
 }

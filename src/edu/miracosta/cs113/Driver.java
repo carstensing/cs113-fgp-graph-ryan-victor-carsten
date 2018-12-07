@@ -19,10 +19,10 @@ public class Driver {
             graph.insert(new Edge(3,2,20));
             graph.insert(new Edge(3,4,60));
 
-
-            graph.dijkstrasAlgorith(0,pred,dist);
+            graph.dijkstrasAlgorithm(0,pred,dist);
 
             int[] path = graph.getSingleShortestPath(0,4,pred);
+
 
 
 
