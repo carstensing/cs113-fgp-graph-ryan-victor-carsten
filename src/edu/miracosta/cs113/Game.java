@@ -27,14 +27,13 @@ public class Game extends JFrame
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         this.title = title;
-        this.map = new Map(10,10);
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
     }
 
     public Game(String title) {
         super();
         this.title = title;
-        this.map = new Map(10,10);
+        this.map = new Map();
         this.windowWidth = map.getWidth() * Map.TILE_SIZE;
         this.windowHeight = map.getHeight() * Map.TILE_SIZE;
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);

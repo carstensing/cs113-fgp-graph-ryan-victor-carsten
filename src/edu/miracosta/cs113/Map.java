@@ -30,8 +30,7 @@ public class Map {
     }
     public Map()
     {
-            readFile("C:\\Users\\victor\\Documents\\GitHub\\cs113-fgp-graph-ryan-victor-carsten\\src\\edu\\miracosta\\cs113\\Map\\DefaultMap.txt");
-
+            readFile("src\\edu\\miracosta\\cs113\\Map\\DefaultMap.txt");
     }
 
     public Tile getTile(int x, int y) {
