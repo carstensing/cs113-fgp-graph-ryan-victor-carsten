@@ -5,6 +5,10 @@ public class Timer {
     private double lastLoopTime;
     private double autoMoveTime;
 
+    public Timer(){
+        init();
+    }
+
     public void init()
     {
         autoMoveTime = 0;

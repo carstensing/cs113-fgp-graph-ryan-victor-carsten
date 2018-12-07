@@ -30,7 +30,7 @@ public class MatrixGraph extends AbstractGraph{
     public MatrixGraph(Map map) {
         super(map.getRows() * map.getColumns(), false);
         edges = new double[getNumV()][getNumV()];
-        boolean isBarrier = false;
+        boolean isBarrier;
         int currentIndex, upIndex, downIndex, leftIndex, rightIndex;
         for (int i = 0; i < edges.length; i ++) {
             for (int j = 0; j < edges.length; j ++) {
@@ -49,32 +49,24 @@ public class MatrixGraph extends AbstractGraph{
                     leftIndex = map.get1DIndex(i, j - 1);
                     if (map.getTile(i, j - 1) != Map.BARRIER_TILE && !isBarrier) {
                         insert(new Edge(leftIndex,currentIndex, 1.0));
-                    } else {
-                        insert(new Edge(leftIndex,currentIndex, Double.POSITIVE_INFINITY));
                     }
                 }
                 if (j + 1 < map.getColumns()) {
                     rightIndex = map.get1DIndex(i, j + 1);
                     if (map.getTile(i,j + 1) != Map.BARRIER_TILE && !isBarrier) {
                         insert(new Edge(rightIndex, currentIndex, 1.0));
-                    } else {
-                        insert(new Edge(rightIndex, currentIndex, Double.POSITIVE_INFINITY));
                     }
                 }
                 if (i - 1 > -1 && i - 1 < map.getRows()) {
                     upIndex = map.get1DIndex(i - 1, j);
                     if (map.getTile(i -1, j) != Map.BARRIER_TILE &&!isBarrier) {
                         insert(new Edge(upIndex,currentIndex, 1.0));
-                    } else {
-                        insert(new Edge(upIndex,currentIndex, Double.POSITIVE_INFINITY));
                     }
                 }
                 if (i + 1 < map.getRows()) {
                     downIndex = map.get1DIndex(i + 1, j);
                     if (map.getTile(i + 1, j) != Map.BARRIER_TILE && !isBarrier) {
                         insert(new Edge(downIndex,currentIndex, 1.0));
-                    } else {
-                        insert(new Edge(downIndex,currentIndex, Double.POSITIVE_INFINITY));
                     }
                 }
             }
@@ -336,10 +328,6 @@ public class MatrixGraph extends AbstractGraph{
             array[counter] = stack.pop();
             counter ++;
         }
-//        for(int i = 0; i < stack.size()+1;i++)
-//        {
-//            array[i] = stack.pop();
-//        }
         return array;
     }
 }
