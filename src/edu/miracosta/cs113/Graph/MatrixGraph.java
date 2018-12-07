@@ -266,11 +266,7 @@ public class MatrixGraph extends AbstractGraph{
 
             //Not sure if this line of code should be here
             //Because it is assuming the start is connected to every vertex
-            if (isEdge(start,vertices)) {
-                dist[vertices] = getEdge(start,vertices).getWeight();
-            } else {
-                dist[vertices] = Double.POSITIVE_INFINITY;
-            }
+            dist[vertices] = getEdge(start,vertices).getWeight();
 
         }
 
@@ -312,12 +308,6 @@ public class MatrixGraph extends AbstractGraph{
                     }
                 }
             }
-        }
-
-        for (int i = 0; i < pred.length; i ++) {
-            System.out.println("Index " + i);
-            System.out.println("\t" + dist[i]);
-            System.out.println("\t" + pred[i]);
         }
     }
 
