@@ -38,8 +38,8 @@ public class Game extends JFrame
         super();
         setTitle(title);
         this.map = new Map();
-        this.windowWidth = map.getRows() * Map.TILE_SIZE;
-        this.windowHeight = map.getColumns() * Map.TILE_SIZE;
+        this.windowWidth = map.getColumns() * Map.TILE_SIZE;
+        this.windowHeight = map.getRows() * Map.TILE_SIZE;
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
     }
 
@@ -102,16 +102,17 @@ public class Game extends JFrame
             @Override
             public void keyPressed(KeyEvent e) {
                 if(e.getKeyCode() == KeyEvent.VK_S) {
-                    player.move(0, 1, map);
+                    player.move(1, 0, map);
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_W) {
-                    player.move(0, -1, map);
-                }
-                else if (e.getKeyCode() == KeyEvent.VK_A) {
                     player.move(-1, 0, map);
                 }
+                else if (e.getKeyCode() == KeyEvent.VK_A) {
+                    player.move(0, -1, map);
+
+                }
                 else if (e.getKeyCode() == KeyEvent.VK_D) {
-                    player.move(1, 0, map);
+                    player.move(0, 1, map);
                 }
             }
 
@@ -138,7 +139,7 @@ public class Game extends JFrame
             for (int j = 0; j < map.getColumns(); j ++) {
                 current = map.getTile(i,j);
                 bbg.setColor(current.getColor());
-                bbg.fillRect(i * current.getWidth(), j * current.getHeight(), current.getWidth() - 1, current.getHeight() - 1);
+                bbg.fillRect(j * current.getWidth(), i * current.getHeight(), current.getWidth() - 1, current.getHeight() - 1);
             }
         }
         getContentPane().getGraphics().drawImage(backBuffer,0,0,this);
