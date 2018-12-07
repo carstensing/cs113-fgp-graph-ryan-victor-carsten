@@ -1,5 +1,7 @@
 package edu.miracosta.cs113;
 
+import edu.miracosta.cs113.Graph.MatrixGraph;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -11,7 +13,6 @@ public class Game extends JFrame
 
     private int windowWidth;
     private int windowHeight;
-    private String title;
     private Map map;
     private BufferedImage backBuffer;
 
@@ -26,17 +27,20 @@ public class Game extends JFrame
         super();
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
-        this.title = title;
-        backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
+        setTitle(title);
+        this.map = new Map(10,10);
+        backBuffer = new BufferedImage(getContentPane().getWidth(), getContentPane().getHeight(),BufferedImage.TYPE_INT_RGB);
     }
 
     public Game(String title) {
         super();
-        this.title = title;
+        setTitle(title);
         this.map = new Map();
-        this.windowWidth = map.getWidth() * Map.TILE_SIZE;
-        this.windowHeight = map.getHeight() * Map.TILE_SIZE;
+        this.windowWidth = map.getRows() * Map.TILE_SIZE;
+        this.windowHeight = map.getColumns() * Map.TILE_SIZE;
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
+        MatrixGraph graph = new MatrixGraph(map);
+        graph.drawGraph();
     }
 
     public void run()
@@ -82,10 +86,11 @@ public class Game extends JFrame
 
     public void initialize()
     {
-        setSize(windowWidth, windowHeight);
-        setResizable(false);
+        setSize(windowWidth,windowHeight);
+        setResizable(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+        setBackground(Color.BLACK);
         this.addKeyListener(new KeyListener() {
             Player player = map.getPlayer();
             @Override
@@ -123,20 +128,17 @@ public class Game extends JFrame
 
     public void draw()
     {
-        Graphics g = getGraphics();
         Graphics bbg = backBuffer.getGraphics();
         Tile current;
-        bbg.setColor(Color.BLACK);
-        bbg.drawRect(0,0,windowWidth,windowHeight);
 
-        for (int i = 0; i < map.getWidth(); i ++) {
-            for (int j = 0; j < map.getHeight(); j ++) {
+        for (int i = 0; i < map.getRows(); i ++) {
+            for (int j = 0; j < map.getColumns(); j ++) {
                 current = map.getTile(i,j);
                 bbg.setColor(current.getColor());
                 bbg.fillRect(i * current.getWidth(), j * current.getHeight(), current.getWidth() - 1, current.getHeight() - 1);
             }
         }
-        g.drawImage(backBuffer,0,0,this);
+        getContentPane().getGraphics().drawImage(backBuffer,0,0,this);
     }
 
     public int getWindowWidth()

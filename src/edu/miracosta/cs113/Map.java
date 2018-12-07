@@ -5,6 +5,7 @@ import edu.miracosta.cs113.Graph.MatrixGraph;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Map {
@@ -14,64 +15,51 @@ public class Map {
     public static final Tile PLAYER_TILE = new Tile(Color.GREEN, TILE_SIZE, TILE_SIZE);
     public static final Tile ENEMY_TILE = new Tile(Color.RED, TILE_SIZE, TILE_SIZE);
     private Player player;
-    private Enemy[] enemies;
-
-    private int width;
-    private int height;
+    private ArrayList<Enemy> enemies;
+    private int rows;
+    private int columns;
     private Tile[][] tiles;
     private MatrixGraph graph;
 
-    public Map(int width, int height) {
-        this.width = width;
-        this.height = height;
-        tiles = new Tile[width][height];
+    public Map(int rows, int columns) {
+        this.rows = rows;
+        this.columns = columns;
+        tiles = new Tile[rows][columns];
         player = new Player(0,1);
-        randomizeMap();
+        enemies = new ArrayList<>();
     }
     public Map()
     {
-            readFile("src\\edu\\miracosta\\cs113\\Map\\DefaultMap.txt");
+        enemies = new ArrayList<>();
+        readFile("DefaultMap.txt");
     }
 
     public Tile getTile(int x, int y) {
         return tiles[x][y];
     }
 
-    public void randomizeMap() {
-        for (int i = 0; i < width; i ++) {
-            for (int j = 0; j < height; j ++) {
-                if (Math.random() * width < width / 5) {
-                    tiles[i][j] = BARRIER_TILE;
-                }else {
-                    tiles[i][j] = WALKABLE_TILE;
-                }
-            }
-        }
-        tiles[player.getX()][player.getY()] = PLAYER_TILE;
-    }
-
     public Player getPlayer() {
         return player;
     }
 
-    public Enemy[] getEnemies() {
+    public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
 
-    public int getWidth() {
-        return width;
+    public int getRows() {
+        return rows;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public void setRows(int rows) {
+        this.rows = rows;
     }
 
-    public int getHeight() {
-        return height;
+    public int getColumns() {
+        return columns;
     }
 
-    public void setHeight(int height) {
-        this.height = height;
+    public void setColumns(int columns) {
+        this.columns = columns;
     }
 
     public Tile[][] getTiles() {
@@ -90,23 +78,23 @@ public class Map {
         this.graph = graph;
     }
 
-    public  void readFile(String file)
+    public void readFile(String file)
     {
-        player = new Player(0,1);;
+        player = new Player(0,1);
         Scanner reader = null;
         try
         {
             reader = new Scanner( new FileInputStream(file));
 
-            this.height = Integer.parseInt(reader.nextLine());
-            this.width = Integer.parseInt(reader.nextLine());
-            tiles = new Tile[width][height];
+            this.columns = Integer.parseInt(reader.nextLine());
+            this.rows = Integer.parseInt(reader.nextLine());
+            tiles = new Tile[rows][columns];
 
             while (reader.hasNext())
             {
-                for(int i = 0; i < this.width;i++)
+                for(int i = 0; i < this.rows;i++)
                 {
-                    for (int j = 0; j< this.height; j++)
+                    for (int j = 0; j< this.columns; j++)
                     {
                         int value = reader.nextInt();
 
@@ -126,6 +114,7 @@ public class Map {
                         }
                         else
                         {
+                            enemies.add(new Enemy(i,j));
                             tiles[i][j] = ENEMY_TILE;
                         }
 
@@ -138,5 +127,9 @@ public class Map {
             e.printStackTrace();
         }
 
+    }
+
+    public int get1DIndex(int x, int y) {
+        return y + (x * getRows());
     }
 }
