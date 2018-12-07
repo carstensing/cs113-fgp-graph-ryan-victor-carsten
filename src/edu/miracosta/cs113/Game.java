@@ -125,15 +125,8 @@ public class Game extends JFrame
 
     public void update()
     {
-        float elapsedTime;
-        elapsedTime = timer.getElapsedTime();
-        timer.setAutoMoveTime(elapsedTime);
-        if (timer.getAutoMoveTime() > 0.20)
-        {
-            timer.resetAutoMoveTime();
-            for (Enemy enemy: map.getEnemies()) {
-                enemy.moveTowardsPlayer(map);
-            }
+        for (Enemy enemy: map.getEnemies()) {
+            enemy.update(map);
         }
     }
 
