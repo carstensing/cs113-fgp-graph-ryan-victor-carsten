@@ -135,7 +135,7 @@ public class Map {
 
     public int[] get2DIndex(int index) {
         int column = index % columns;
-        int row = index / rows;
+        int row = index / columns;
         return new int[]{row,column};
     }
 }

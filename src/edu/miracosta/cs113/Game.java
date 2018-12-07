@@ -78,7 +78,7 @@ public class Game extends JFrame
             }
 
             if (System.nanoTime() - startOfSecond >= 1000000000) {
-                System.out.println(frameCounter);
+//                System.out.println(frameCounter);
                 frameCounter = 0;
             }
         }

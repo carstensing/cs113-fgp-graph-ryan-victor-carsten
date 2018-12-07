@@ -27,57 +27,58 @@ public class MatrixGraph extends AbstractGraph{
         }
     }
 
-//    public MatrixGraph(Map map) {
-//        super(map.getRows() * map.getColumns(), false);
-//        edges = new double[getNumV()][getNumV()];
-//        boolean isBarrier = false;
-//        int currentIndex, upIndex, downIndex, leftIndex, rightIndex;
-//        for (int i = 0; i < map.getRows(); i ++) {
-//            for (int j = 0; j < map.getColumns(); j ++) {
-//                currentIndex = map.get1DIndex(i,j);
-//                if (map.getTile(i,j) == Map.BARRIER_TILE) {
-//                    isBarrier = true;
-//                } else {
-//                    isBarrier = false;
-//                }
-//                if (j - 1 > -1 && j - 1 < map.getColumns()) {
-//                    leftIndex = map.get1DIndex(i, j - 1);
-//                    if (map.getTile(i, j - 1) != Map.BARRIER_TILE&& !isBarrier) {
-//                        insert(new Edge(currentIndex, leftIndex, 1.0));
-//                    } else {
-//                        insert(new Edge(currentIndex, leftIndex, Double.POSITIVE_INFINITY));
-//                    }
-//                }
-//                if (j + 1 < map.getColumns()) {
-//                    rightIndex = map.get1DIndex(i, j + 1);
-//                    if (map.getTile(i,j + 1) != Map.BARRIER_TILE && !isBarrier) {
-//                        insert(new Edge(currentIndex, rightIndex, 1.0));
-//                    } else {
-//                        insert(new Edge(currentIndex, rightIndex, Double.POSITIVE_INFINITY));
-//                    }
-//                }
-//                if (i - 1 > -1 && i - 1 < map.getRows()) {
-//                    upIndex = map.get1DIndex(i - 1, j);
-//                    if (map.getTile(i -1, j) != Map.BARRIER_TILE &&!isBarrier) {
-//                        insert(new Edge(currentIndex, upIndex, 1.0));
-//                    } else {
-//                        insert(new Edge(currentIndex, upIndex, Double.POSITIVE_INFINITY));
-//                    }
-//                }
-//                if (i + 1 < map.getRows()) {
-//                    downIndex = map.get1DIndex(i + 1, j);
-//                    if (map.getTile(i + 1, j) != Map.BARRIER_TILE && !isBarrier) {
-//                        insert(new Edge(currentIndex, downIndex, 1.0));
-//                    } else {
-//                        insert(new Edge(currentIndex, downIndex, Double.POSITIVE_INFINITY));
-//                    }
-//                }
-//            }
-//        }
-//    }
-
     public MatrixGraph(Map map) {
-
+        super(map.getRows() * map.getColumns(), false);
+        edges = new double[getNumV()][getNumV()];
+        boolean isBarrier = false;
+        int currentIndex, upIndex, downIndex, leftIndex, rightIndex;
+        for (int i = 0; i < edges.length; i ++) {
+            for (int j = 0; j < edges.length; j ++) {
+                edges[i][j] = Double.POSITIVE_INFINITY;
+            }
+        }
+        for (int i = 0; i < map.getRows(); i ++) {
+            for (int j = 0; j < map.getColumns(); j ++) {
+                currentIndex = map.get1DIndex(i,j);
+                if (map.getTile(i,j) == Map.BARRIER_TILE) {
+                    isBarrier = true;
+                } else {
+                    isBarrier = false;
+                }
+                if (j - 1 > -1 && j - 1 < map.getColumns()) {
+                    leftIndex = map.get1DIndex(i, j - 1);
+                    if (map.getTile(i, j - 1) != Map.BARRIER_TILE && !isBarrier) {
+                        insert(new Edge(leftIndex,currentIndex, 1.0));
+                    } else {
+                        insert(new Edge(leftIndex,currentIndex, Double.POSITIVE_INFINITY));
+                    }
+                }
+                if (j + 1 < map.getColumns()) {
+                    rightIndex = map.get1DIndex(i, j + 1);
+                    if (map.getTile(i,j + 1) != Map.BARRIER_TILE && !isBarrier) {
+                        insert(new Edge(rightIndex, currentIndex, 1.0));
+                    } else {
+                        insert(new Edge(rightIndex, currentIndex, Double.POSITIVE_INFINITY));
+                    }
+                }
+                if (i - 1 > -1 && i - 1 < map.getRows()) {
+                    upIndex = map.get1DIndex(i - 1, j);
+                    if (map.getTile(i -1, j) != Map.BARRIER_TILE &&!isBarrier) {
+                        insert(new Edge(upIndex,currentIndex, 1.0));
+                    } else {
+                        insert(new Edge(upIndex,currentIndex, Double.POSITIVE_INFINITY));
+                    }
+                }
+                if (i + 1 < map.getRows()) {
+                    downIndex = map.get1DIndex(i + 1, j);
+                    if (map.getTile(i + 1, j) != Map.BARRIER_TILE && !isBarrier) {
+                        insert(new Edge(downIndex,currentIndex, 1.0));
+                    } else {
+                        insert(new Edge(downIndex,currentIndex, Double.POSITIVE_INFINITY));
+                    }
+                }
+            }
+        }
     }
 
 
@@ -257,14 +258,20 @@ public class MatrixGraph extends AbstractGraph{
                 vMinuesS.add(i);
             }
         }
+
         //Initialize pred and dist
-        for(int vertices:vMinuesS)
+        for(Integer vertices:vMinuesS)
         {
             pred[vertices] = start;
 
             //Not sure if this line of code should be here
             //Because it is assuming the start is connected to every vertex
-            dist[vertices] = getEdge(start,vertices).getWeight();
+            if (isEdge(start,vertices)) {
+                dist[vertices] = getEdge(start,vertices).getWeight();
+            } else {
+                dist[vertices] = Double.POSITIVE_INFINITY;
+            }
+
         }
 
         //Main loop
@@ -274,22 +281,26 @@ public class MatrixGraph extends AbstractGraph{
             double minDist = Double.POSITIVE_INFINITY;
             int u = -1;
 
-
-
-            for(int vertex : vMinuesS)
+            for(Integer vertex : vMinuesS)
             {
-
                 if(dist[vertex] < minDist)
                 {
                     minDist = dist[vertex];
                     u = vertex;
+                }
+            }
 
+            if (u == -1) {
+                for(Integer vertex : vMinuesS)
+                {
+                    u = vertex;
+                    break;
                 }
             }
             //Remove u from v minus
             vMinuesS.remove(u);
             //update the distance
-            for(int vertex: vMinuesS)
+            for(Integer vertex: vMinuesS)
             {
                 if(isEdge(u,vertex))
                 {
@@ -301,6 +312,12 @@ public class MatrixGraph extends AbstractGraph{
                     }
                 }
             }
+        }
+
+        for (int i = 0; i < pred.length; i ++) {
+            System.out.println("Index " + i);
+            System.out.println("\t" + dist[i]);
+            System.out.println("\t" + pred[i]);
         }
     }
 
@@ -323,11 +340,16 @@ public class MatrixGraph extends AbstractGraph{
             stack.push(end);
             end = pred[end];
         }
-        int[] array = new int[stack.size()-1];
-        for(int i = 0; i < stack.size()+1;i++)
-        {
-            array[i] = stack.pop();
+        int[] array = new int[stack.size()];
+        int counter = 0;
+        while (!stack.isEmpty()) {
+            array[counter] = stack.pop();
+            counter ++;
         }
+//        for(int i = 0; i < stack.size()+1;i++)
+//        {
+//            array[i] = stack.pop();
+//        }
         return array;
     }
 }
