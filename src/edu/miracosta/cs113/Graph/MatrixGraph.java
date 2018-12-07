@@ -222,6 +222,20 @@ public class MatrixGraph extends AbstractGraph{
     }
 
     /**
+     * Obtains a single path by combing dijstras method and getSingleShortestPath method
+     * To make it easier for programmer to code
+     * @param start         Stating vertex
+     * @param destination   Destination
+     * @return              Returns the path in the form of an array
+     */
+    public int[] getPath(int start,int destination)
+    {
+        int[] predecesors = new int[getNumV()];
+        double[] dist = new double[getNumV()];
+        dijkstrasAlgorithm(start,predecesors,dist);
+        return getSingleShortestPath(start,destination,predecesors);
+    }
+    /**
      * This runs dijkstras algorithm
      * @param start     Staring vertex where all paths will be based from
      * @param pred      An array that stores int references to a vertex from another
