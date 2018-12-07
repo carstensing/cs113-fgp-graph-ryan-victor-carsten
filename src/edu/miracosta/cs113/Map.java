@@ -127,10 +127,15 @@ public class Map {
         {
             e.printStackTrace();
         }
-
     }
 
-    public int get1DIndex(int x, int y) {
-        return y + (x * getRows());
+    public int get1DIndex(int row, int column) {
+        return column + row * columns;
+    }
+
+    public int[] get2DIndex(int index) {
+        int column = index % columns;
+        int row = index / rows;
+        return new int[]{row,column};
     }
 }
