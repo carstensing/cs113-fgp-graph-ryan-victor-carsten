@@ -1,44 +1,71 @@
 package edu.miracosta.cs113;
 
 
-public class Entity {
+public abstract class Entity {
     private int x;
     private int y;
 
+    /**
+     * Default Constructor
+     */
     public Entity(){
         this.x = 0;
         this.y = 0;
     }
 
-
+    /**
+     * Constructor for initial position in Map
+     *
+     * @param x X Position (Row #)
+     * @param y Y Position (Column #)
+     */
     public Entity(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public void move(int dx, int dy, Map map) {
-        if (x + dx < map.getRows() && x + dx > -1 && y + dy < map.getColumns() && y + dy > -1) {
-            if (map.getTile(x + dx, y + dy) == Map.WALKABLE_TILE) {
-                this.x = x + dx;
-                this.y = y + dy;
-                map.getTiles()[x][y] = Map.PLAYER_TILE;
-                map.getTiles()[x - dx][y - dy] = Map.WALKABLE_TILE;
-            }
-        }
-    }
+    /**
+     * Abstract move method to be overridden. Should update X and Y instance variables, as well as
+     * update the Tiles in Map
+     *
+     * @param dx Change in X position
+     * @param dy Change in Y position
+     * @param map Map containing this Entity
+     */
+    public abstract void move(int dx, int dy, Map map);
 
+    /**
+     * Accessor for x location
+     *
+     * @return int x representing row in Map
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * Accessor for y location
+     *
+     * @return int y representing column in Map
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * Mutator for x
+     *
+     * @param x new row in Map
+     */
     public void setX(int x) {
         this.x = x;
     }
 
+    /**
+     * Mutator for y
+     *
+     * @param y new column in Map
+     */
     public void setY(int y) {
         this.y = y;
     }

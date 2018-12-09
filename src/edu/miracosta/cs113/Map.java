@@ -31,7 +31,12 @@ public class Map {
     public Map()
     {
         enemies = new ArrayList<>();
-        readFile("DefaultMap.txt");
+        graph = new MatrixGraph(this);
+    }
+
+    public Map(String file) {
+        enemies = new ArrayList<>();
+        readFile(file);
         graph = new MatrixGraph(this);
     }
 
@@ -129,10 +134,25 @@ public class Map {
         }
     }
 
+    /**
+     * Converts a 2D index to a Row-Ordered 1D index
+     *
+     * @param row row in tiles
+     * @param column column in tiles
+     *
+     * @return Row-Ordered 1D index
+     */
     public int get1DIndex(int row, int column) {
         return column + row * columns;
     }
 
+    /**
+     * Converts a Row-Ordered 1D index into a 2D index
+     *
+     * @param index Row-Ordered 1D index
+     *
+     * @return int[] containing {row,column}
+     */
     public int[] get2DIndex(int index) {
         int column = index % columns;
         int row = index / columns;

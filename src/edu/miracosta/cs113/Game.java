@@ -1,7 +1,6 @@
 package edu.miracosta.cs113;
 
-import edu.miracosta.cs113.Graph.MatrixGraph;
-import edu.miracosta.cs113.Timer;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +15,6 @@ public class Game extends JFrame
     private int windowHeight;
     private Map map;
     private BufferedImage backBuffer;
-    private Timer timer;
 
     public static void main(String[] args)
     {
@@ -32,15 +30,17 @@ public class Game extends JFrame
         setTitle(title);
         this.map = new Map(10,10);
         backBuffer = new BufferedImage(getContentPane().getWidth(), getContentPane().getHeight(),BufferedImage.TYPE_INT_RGB);
+        frameInit();
     }
 
     public Game(String title) {
         super();
         setTitle(title);
-        this.map = new Map();
+        this.map = new Map("DefaultMap.txt");
         this.windowWidth = map.getColumns() * Map.TILE_SIZE;
-        this.windowHeight = map.getRows() * Map.TILE_SIZE;
+        this.windowHeight = map.getRows() * Map.TILE_SIZE + 20; //+ 20 accounts for OS toolbar on top of window
         backBuffer = new BufferedImage(windowWidth, windowHeight,BufferedImage.TYPE_INT_RGB);
+        frameInit();
     }
 
     public void run()
@@ -87,10 +87,8 @@ public class Game extends JFrame
     public void initialize()
     {
         setSize(windowWidth,windowHeight);
-        timer = new Timer();
-        setResizable(true);
+        setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setVisible(true);
         setBackground(Color.BLACK);
         this.addKeyListener(new KeyListener() {
             Player player = map.getPlayer();
@@ -121,6 +119,7 @@ public class Game extends JFrame
 
             }
         });
+        setVisible(true);
     }
 
     public void update()

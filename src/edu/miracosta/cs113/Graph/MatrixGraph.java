@@ -27,6 +27,13 @@ public class MatrixGraph extends AbstractGraph{
         }
     }
 
+    /**
+     * Constructs a new undirected graph based on an existing Map.
+     * Edges are determined by north, south, east, west adjacencies and
+     * barriers in the map.
+     *
+     * @param map Map to be represented as an undirected graph
+     */
     public MatrixGraph(Map map) {
         super(map.getRows() * map.getColumns(), false);
         edges = new double[getNumV()][getNumV()];
