@@ -1,8 +1,5 @@
 package edu.miracosta.cs113;
 
-import edu.miracosta.cs113.Graph.MatrixGraph;
-import edu.miracosta.cs113.Timer;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -126,6 +123,9 @@ public class Game extends JFrame
     public void update()
     {
         for (Enemy enemy: map.getEnemies()) {
+            if(enemy.getX() == map.getPlayer().getX() && enemy.getY() == map.getPlayer().getY()) {
+                System.exit(0);
+            }
             enemy.update(map);
         }
     }
