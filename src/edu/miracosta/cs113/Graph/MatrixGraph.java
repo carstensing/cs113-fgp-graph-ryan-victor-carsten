@@ -83,7 +83,7 @@ public class MatrixGraph extends AbstractGraph{
 
     /**
      * Created to see a visual representation of the matrix
-     * Weights are casted to int
+     *
      */
     public void drawGraph()
     {
@@ -262,9 +262,6 @@ public class MatrixGraph extends AbstractGraph{
         for(Integer vertices:vMinuesS)
         {
             pred[vertices] = start;
-
-            //Not sure if this line of code should be here
-            //Because it is assuming the start is connected to every vertex
             dist[vertices] = getEdge(start,vertices).getWeight();
 
         }
