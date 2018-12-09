@@ -27,6 +27,13 @@ public class MatrixGraph extends AbstractGraph{
         }
     }
 
+    /**
+     * Constructs a new undirected graph based on an existing Map.
+     * Edges are determined by north, south, east, west adjacencies and
+     * barriers in the map.
+     *
+     * @param map Map to be represented as an undirected graph
+     */
     public MatrixGraph(Map map) {
         super(map.getRows() * map.getColumns(), false);
         edges = new double[getNumV()][getNumV()];
@@ -76,7 +83,7 @@ public class MatrixGraph extends AbstractGraph{
 
     /**
      * Created to see a visual representation of the matrix
-     * Weights are casted to int
+     *
      */
     public void drawGraph()
     {
@@ -255,9 +262,6 @@ public class MatrixGraph extends AbstractGraph{
         for(Integer vertices:vMinuesS)
         {
             pred[vertices] = start;
-
-            //Not sure if this line of code should be here
-            //Because it is assuming the start is connected to every vertex
             dist[vertices] = getEdge(start,vertices).getWeight();
 
         }

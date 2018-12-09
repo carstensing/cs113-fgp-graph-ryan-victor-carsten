@@ -14,6 +14,20 @@ public class GraphTest {
     private MatrixGraph graph;
 
 
+    private void setUp()
+    {
+
+        //Making a directed Graph with five vertices (From the slides)
+        graph = new MatrixGraph(5,true);
+        graph.insert(new Edge(0,1,10));
+        graph.insert(new Edge(0,3,30));
+        graph.insert(new Edge(0,4,100));
+        graph.insert(new Edge(1,2,50));
+        graph.insert(new Edge(2,4,10));
+        graph.insert(new Edge(3,2,20));
+        graph.insert(new Edge(3,4,60));
+    }
+
     @Test
     public void testInsertionDirected()
     {
@@ -45,5 +59,57 @@ public class GraphTest {
         assertEquals("Expected Edge does not match actual edge",actual,expected);
 
     }
+    @Test
+    public void testingDijkstras()
+    {
+        setUp();
+        int[] pred = new int[5];
+        double[] dist = new double[5];
+
+        //Starting point and p[v] and d[v]
+        graph.dijkstrasAlgorithm(0,pred,dist);
+
+        //Getting values from the slides
+        double[] expectedDistanceValues = {0,10.0,50.0,30.0,60.0};
+        int[] expectedPredecesors = {0,0,3,0,2};
+
+        //Starting from one to ignore the starting position
+        for(int i = 1; i < pred.length;i++ )
+        {
+            double actual = dist[i];
+            double expected = expectedDistanceValues[i];
+
+            //Comparing wieghts from starting vertex to all vertices
+            assertTrue(actual==expected);
+
+            int actualPred = pred[i];
+            int expectedPred = expectedPredecesors[i];
+
+            assertEquals("Predecessors do not match",expectedPred,actualPred);
+
+        }
+
+    }
+
+    @Test
+    public void testingGetPath()
+    {
+        setUp();
+        int[] actual = graph.getPath(0,4);
+        int[] expected = {3,2,4};
+
+        for(int i = 1; i < expected.length;i++ )
+        {
+
+            int actualPath = actual[i];
+            int expectedPath = expected[i];
+
+            assertEquals("Predecessors do not match",expectedPath,actualPath);
+
+        }
+
+
+    }
+
 
 }

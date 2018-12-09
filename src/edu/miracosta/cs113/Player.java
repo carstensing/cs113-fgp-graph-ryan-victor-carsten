@@ -1,10 +1,30 @@
 package edu.miracosta.cs113;
 
 public class Player extends Entity {
+    /**
+     * Default Constructor
+     */
+    public Player() {
+        super();
+    }
+    /**
+     * Full Constructor
+     *
+     * @param x x position
+     * @param y y position
+     */
     public Player(int x, int y) {
         super(x,y);
     }
 
+    /**
+     * Move Function for player. Error checking done to ensure the player does not move out of bounds.
+     * Player can only move if new location is a walkable tile, as defined in the Map class.
+     *
+     * @param dx Change in X position
+     * @param dy Change in Y position
+     * @param map Map containing this Entity
+     */
     public void move(int dx, int dy, Map map) {
         if (getX() + dx < map.getRows() && getX() + dx > -1 && getY() + dy < map.getColumns() && getY() + dy > -1) {
             if (map.getTile(getX() + dx, getY() + dy) == Map.WALKABLE_TILE) {
