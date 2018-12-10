@@ -3,7 +3,7 @@ package edu.miracosta.cs113;
 
 public class Enemy extends Entity {
     private Timer timer; //Timer used to delay enemy movements
-    private double speed = 0.20; // Lower is faster
+    private double speed = 0.25; // Lower is faster
 
     /**
      * Default Constructor
@@ -26,7 +26,6 @@ public class Enemy extends Entity {
 
     /**
      * To be called in Game's update method.
-     * Will move enemy towards the player if enough time has passed, based on Timer.
      *
      * @param map Map containing enemy
      */
@@ -38,8 +37,7 @@ public class Enemy extends Entity {
             timer.resetAutoMoveTime();
             moveTowardsPlayer(map);
         }
-
-
+        moveTowardsPlayer(map);
     }
 
 
