@@ -2,7 +2,8 @@ package edu.miracosta.cs113;
 
 
 public class Enemy extends Entity {
-    Timer timer; //Timer used to delay enemy movements
+    private Timer timer; //Timer used to delay enemy movements
+    private double speed = 0.20; // Lower is faster
 
     /**
      * Default Constructor
@@ -33,7 +34,7 @@ public class Enemy extends Entity {
         float elapsedTime;
         elapsedTime = timer.getElapsedTime();
         timer.setAutoMoveTime(elapsedTime);
-        if (timer.getAutoMoveTime() > 1) {
+        if (timer.getAutoMoveTime() > speed) {
             timer.resetAutoMoveTime();
             //If Enemy is next to player, then eat / kill player
             //else moveTowardsPlayer(map)
@@ -64,7 +65,7 @@ public class Enemy extends Entity {
      */
     public void move(int dx, int dy, Map map) {
         if (getX() + dx < map.getRows() && getX() + dx > -1 && getY() + dy < map.getColumns() && getY() + dy > -1) {
-            if (map.getTile(getX() + dx, getY() + dy) == Map.WALKABLE_TILE) {
+            if (map.getTile(getX() + dx, getY() + dy) == Map.WALKABLE_TILE || map.getTile(getX() + dx, getY() + dy) == Map.PLAYER_TILE) {
                 setX(getX() + dx);
                 setY(getY() + dy);
                 map.getTiles()[getX()][getY()] = Map.ENEMY_TILE;

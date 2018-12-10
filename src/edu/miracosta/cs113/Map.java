@@ -28,6 +28,7 @@ public class Map {
         player = new Player(0,1);
         enemies = new ArrayList<>();
     }
+
     public Map()
     {
         enemies = new ArrayList<>();
