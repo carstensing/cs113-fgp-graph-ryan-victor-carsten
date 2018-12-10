@@ -14,9 +14,13 @@ public class Game extends JFrame
     private BufferedImage backBuffer;
 
     //Level variables
-    public static final int LEVEL_DURATION = 5; // seconds
+    public static final int ENEMY_SPAWN_TIME = 5; // seconds
+    public static final double ENEMY_UPDATE_TIME = 12; // frames
+    public static final int ITEM_SPAWN_TIME = 12; // seconds
     private int level = 1;
     private boolean addEnemy = false;
+    private boolean updateEnemy = false;
+    private boolean addItem = false;
     private boolean gameOver = false;
 
     public static void main(String[] args)
@@ -50,7 +54,9 @@ public class Game extends JFrame
 
         long startOfSecond = 0;
 
-        int levelTimer = 0;
+        int enemySpawnTimer = 0;
+        int itemSpawnTimer = 0;
+        int enemyUpdateTimer = 0;
 
         while(isRunning) {
             startOfFrame = System.nanoTime();
@@ -70,16 +76,28 @@ public class Game extends JFrame
             if (frameTimer >= timePerFrame) {
                 frameTimer = 0;
                 frameCounter++;
+
+                enemyUpdateTimer++;
+                if(enemyUpdateTimer >= ENEMY_UPDATE_TIME && !gameOver) {
+                    updateEnemy = true;
+                    enemyUpdateTimer = 0;
+                }
             }
 
             if (System.nanoTime() - startOfSecond >= 1000000000) {
                 //System.out.println(frameCounter);
                 frameCounter = 0;
 
-                levelTimer++;
-                if(levelTimer >= LEVEL_DURATION && !gameOver) {
+                enemySpawnTimer++;
+                if(enemySpawnTimer >= ENEMY_SPAWN_TIME && !gameOver) {
                     addEnemy = true;
-                    levelTimer = 0;
+                    enemySpawnTimer = 0;
+                }
+
+                itemSpawnTimer++;
+                if(itemSpawnTimer >= ITEM_SPAWN_TIME && !gameOver) {
+                    addItem = true;
+                    itemSpawnTimer = 0;
                 }
             }
         }
@@ -131,11 +149,31 @@ public class Game extends JFrame
             addEnemy = false;
         }
 
-        for (Enemy enemy: map.getEnemies()) {
-            enemy.update(map);
-            if(enemy.getX() == map.getPlayer().getX() && enemy.getY() == map.getPlayer().getY() ) {
-                this.gameOver = true;
+        if(addItem) {
+            map.getTiles()[map.getRows()-3][map.getColumns()/2] = Map.ITEM_TILE;
+            addItem = false;
+        }
+
+        if(map.getPlayer().getUseItem()) {
+            //System.out.println("ITEM");
+            int size = map.getEnemies().size()/2;
+
+            for (int i = 0; i < size; i++) {
+                map.getTiles()[map.getEnemies().get(i).getX()][map.getEnemies().get(i).getY()] = Map.WALKABLE_TILE;
+                map.getEnemies().remove(i);
+                //System.out.println("REMOVE" + i);
             }
+            map.getPlayer().setUseItem(false);
+        }
+
+        if(updateEnemy) {
+            for (Enemy enemy: map.getEnemies()) {
+                enemy.update(map);
+                if(enemy.getX() == map.getPlayer().getX() && enemy.getY() == map.getPlayer().getY()) {
+                    this.gameOver = true;
+                }
+            }
+            updateEnemy = false;
         }
     }
 
@@ -155,22 +193,22 @@ public class Game extends JFrame
             }
         }
         else {
-            setTitle("You reached level " + level + "!");
-
-            bbg.setFont(new Font("TimesRoman", Font.PLAIN, 161));
+            //Draw Rectangle
             bbg.setColor(Color.BLACK);
             bbg.fillRect(0,(this.windowHeight/2) - 120, this.windowWidth ,this.windowHeight/4 + 30);
 
+            //Draw background Game Over
             bbg.setFont(new Font("TimesRoman", Font.PLAIN, 161));
             bbg.setColor(Color.ORANGE);
             bbg.drawString("GAME OVER", 20, (this.windowHeight/2) +22);
 
+            //Draw foreground Game Over
             bbg.setFont(new Font("TimesRoman", Font.PLAIN, 160));
             bbg.setColor(Color.RED);
             bbg.drawString("GAME OVER", 20, (this.windowHeight/2) +20);
 
+            setTitle("You reached level " + level + "!");
         }
-
         getContentPane().getGraphics().drawImage(backBuffer,0,0,this);
     }
 

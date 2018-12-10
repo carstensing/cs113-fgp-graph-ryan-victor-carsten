@@ -14,6 +14,7 @@ public class Map {
     public static final Tile BARRIER_TILE = new Tile(Color.BLACK, TILE_SIZE, TILE_SIZE);
     public static final Tile PLAYER_TILE = new Tile(Color.GREEN, TILE_SIZE, TILE_SIZE);
     public static final Tile ENEMY_TILE = new Tile(Color.RED, TILE_SIZE, TILE_SIZE);
+    public static final Tile ITEM_TILE = new Tile(Color.BLUE, TILE_SIZE, TILE_SIZE);
     private Player player;
     private ArrayList<Enemy> enemies;
     private int rows;
