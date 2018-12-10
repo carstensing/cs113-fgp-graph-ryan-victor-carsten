@@ -39,7 +39,7 @@ With this game we are using dijkstra algorithm. The algorithm is used in the mov
 [insert image(s) here to show main use/screen of program]
 
 ## UML Class+Relationship Diagram:
-![UML](doc\UML.jpg)
+![UML](doc/UML.jpg)
 
 ## Sequence Diagram (for driver):
 [insert image here]
