@@ -2,7 +2,8 @@ package edu.miracosta.cs113.Graph;
 
 import java.util.Iterator;
 
-public abstract class AbstractGraph implements Graph{
+public abstract class AbstractGraph implements Graph {
+
     private boolean directed;
     private int numV;
 

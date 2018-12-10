@@ -2,7 +2,6 @@ package edu.miracosta.cs113;
 
 
 public class Enemy extends Entity {
-    private double speed = 0.25; // Lower is faster
 
     /**
      * Default Constructor

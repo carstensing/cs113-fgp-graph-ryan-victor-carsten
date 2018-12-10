@@ -2,6 +2,7 @@ package edu.miracosta.cs113;
 
 
 public abstract class Entity {
+
     private int x;
     private int y;
 

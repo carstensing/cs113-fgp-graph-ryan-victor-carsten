@@ -22,20 +22,6 @@ public class Map {
     private Tile[][] tiles;
     private MatrixGraph graph;
 
-    public Map(int rows, int columns) {
-        this.rows = rows;
-        this.columns = columns;
-        tiles = new Tile[rows][columns];
-        player = new Player(0,1);
-        enemies = new ArrayList<>();
-    }
-
-    public Map()
-    {
-        enemies = new ArrayList<>();
-        graph = new MatrixGraph(this);
-    }
-
     public Map(String file) {
         enemies = new ArrayList<>();
         readFile(file);

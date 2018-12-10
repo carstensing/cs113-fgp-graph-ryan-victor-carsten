@@ -7,8 +7,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class MatrixGraph extends AbstractGraph{
-    double[][] edges;
+public class MatrixGraph extends AbstractGraph {
+
+    private double[][] edges;
 
     public MatrixGraph(int numV, boolean directed) {
         super(numV, directed);
@@ -315,7 +316,7 @@ public class MatrixGraph extends AbstractGraph{
      * @param pred      The array that holds the way to get to start to end
      * @return          an array that has the path to get to your single end point
      */
-    public int[] getSingleShortestPath(int start, int end,int[] pred)
+    public int[] getSingleShortestPath(int start, int end, int[] pred)
     {
         Stack<Integer> stack = new Stack<Integer>();
         stack.push(end);

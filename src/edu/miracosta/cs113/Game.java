@@ -14,9 +14,9 @@ public class Game extends JFrame
     private BufferedImage backBuffer;
 
     //Game variables
-    public static final int ENEMY_SPAWN_TIME = 1; // seconds
+    public static final int ENEMY_SPAWN_TIME = 4; // seconds
     public static final double ENEMY_UPDATE_TIME = 12; // frames
-    public static final int ITEM_SPAWN_TIME = 12; // seconds
+    public static final int ITEM_SPAWN_TIME = 10; // seconds
     private int level = 1;
     private boolean addEnemy = false;
     private boolean updateEnemy = false;
@@ -210,15 +210,5 @@ public class Game extends JFrame
             setTitle("You reached level " + level + "!");
         }
         getContentPane().getGraphics().drawImage(backBuffer,0,0,this);
-    }
-
-    public int getWindowWidth()
-    {
-        return windowWidth;
-    }
-
-    public int getWindowHeight()
-    {
-        return windowHeight;
     }
 }
