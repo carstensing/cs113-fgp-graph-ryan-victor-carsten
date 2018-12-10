@@ -36,8 +36,6 @@ public class Enemy extends Entity {
         timer.setAutoMoveTime(elapsedTime);
         if (timer.getAutoMoveTime() > speed) {
             timer.resetAutoMoveTime();
-            //If Enemy is next to player, then eat / kill player
-            //else moveTowardsPlayer(map)
             moveTowardsPlayer(map);
         }
 
