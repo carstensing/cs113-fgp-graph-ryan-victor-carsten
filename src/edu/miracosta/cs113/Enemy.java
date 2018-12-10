@@ -2,7 +2,6 @@ package edu.miracosta.cs113;
 
 
 public class Enemy extends Entity {
-    private Timer timer; //Timer used to delay enemy movements
     private double speed = 0.25; // Lower is faster
 
     /**
@@ -10,7 +9,6 @@ public class Enemy extends Entity {
      */
     public Enemy() {
         super();
-        timer = new Timer();
     }
 
     /**
@@ -21,7 +19,6 @@ public class Enemy extends Entity {
      */
     public Enemy(int x, int y) {
         super(x,y);
-        timer = new Timer();
     }
 
     /**

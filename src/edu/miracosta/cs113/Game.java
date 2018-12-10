@@ -13,8 +13,8 @@ public class Game extends JFrame
     private Map map;
     private BufferedImage backBuffer;
 
-    //Level variables
-    public static final int ENEMY_SPAWN_TIME = 5; // seconds
+    //Game variables
+    public static final int ENEMY_SPAWN_TIME = 1; // seconds
     public static final double ENEMY_UPDATE_TIME = 12; // frames
     public static final int ITEM_SPAWN_TIME = 12; // seconds
     private int level = 1;
