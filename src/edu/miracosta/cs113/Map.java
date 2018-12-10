@@ -22,6 +22,11 @@ public class Map {
     private Tile[][] tiles;
     private MatrixGraph graph;
 
+    /**
+     * Constructor with width and height
+     * @param rows number of rows
+     * @param columns number of columns
+     */
     public Map(int rows, int columns) {
         this.rows = rows;
         this.columns = columns;
@@ -30,62 +35,120 @@ public class Map {
         enemies = new ArrayList<>();
     }
 
+    /**
+     * Default Constructor
+     */
     public Map()
     {
         enemies = new ArrayList<>();
         graph = new MatrixGraph(this);
     }
 
+    /**
+     * Constructor with file containing Map structure
+     *
+     * @param file name of file
+     */
     public Map(String file) {
         enemies = new ArrayList<>();
         readFile(file);
         graph = new MatrixGraph(this);
     }
 
+    /**
+     * Accessor for Tile from tiles
+     *
+     * @param x row in tiles
+     * @param y column in tiles
+     * @return Tile from [x][y]
+     */
     public Tile getTile(int x, int y) {
         return tiles[x][y];
     }
 
+    /**
+     * Accessor for player instance variable
+     *
+     * @return Player player
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Accessor for enemies array list
+     *
+     * @return enemies
+     */
     public ArrayList<Enemy> getEnemies() {
         return enemies;
     }
 
+    /**
+     * Accessor for rows instance variable (# of rows in tiles)
+     *
+     * @return int representing rows
+     */
     public int getRows() {
         return rows;
     }
 
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
+    /**
+     * Accessor for columns instance variable (# of columns in tiles)
+     *
+     * @return int representing columns
+     */
     public int getColumns() {
         return columns;
     }
 
-    public void setColumns(int columns) {
-        this.columns = columns;
-    }
-
+    /**
+     * Accessor for tiles 2D array
+     *
+     * @return Tile[][] tiles
+     */
     public Tile[][] getTiles() {
         return tiles;
     }
 
-    public void setTiles(Tile[][] tiles) {
-        this.tiles = tiles;
-    }
-
+    /**
+     * Accessor for graph instance variable
+     *
+     * @return MatrixGraph graph
+     */
     public MatrixGraph getGraph() {
         return graph;
     }
 
+    /**
+     * Mutator for graph instance variable
+     *
+     * @param graph graph representing this map
+     */
     public void setGraph(MatrixGraph graph) {
         this.graph = graph;
     }
 
+    /**
+     * Constructs a new map based on this file.
+     * First int: # of columns
+     * Second int: # of rows
+     *
+     * 0's represent open tiles
+     * 1's represent barriers
+     * 2's represent Players
+     * 3's represent Enemies
+     *
+     * Sample:
+     * 3
+     * 3
+     *
+     * 001
+     * 100
+     * 010
+     *
+     * @param file String file name containing
+     */
     public void readFile(String file)
     {
         player = new Player(0,1);
