@@ -42,10 +42,20 @@ public class Player extends Entity {
         }
     }
 
+    /**
+     * Accessor for useItem
+     *
+     * @return useItem
+     */
     public boolean getUseItem() {
         return useItem;
     }
 
+    /**
+     * Mutator for useItem
+     *
+     * @param useItem boolean representing if Player uses item
+     */
     public void setUseItem(boolean useItem) {
         this.useItem = useItem;
     }

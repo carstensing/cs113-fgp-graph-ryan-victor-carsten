@@ -81,7 +81,6 @@ public class MatrixGraph extends AbstractGraph {
         }
     }
 
-
     /**
      * Created to see a visual representation of the matrix
      *
