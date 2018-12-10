@@ -1,6 +1,5 @@
 package edu.miracosta.cs113;
 
-
 public class Enemy extends Entity {
     private double speed = 0.25; // Lower is faster
 
@@ -27,13 +26,6 @@ public class Enemy extends Entity {
      * @param map Map containing enemy
      */
     public void update(Map map) {
-        float elapsedTime;
-        elapsedTime = timer.getElapsedTime();
-        timer.setAutoMoveTime(elapsedTime);
-        if (timer.getAutoMoveTime() > speed) {
-            timer.resetAutoMoveTime();
-            moveTowardsPlayer(map);
-        }
         moveTowardsPlayer(map);
     }
 

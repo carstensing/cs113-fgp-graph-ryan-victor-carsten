@@ -155,13 +155,11 @@ public class Game extends JFrame
         }
 
         if(map.getPlayer().getUseItem()) {
-            //System.out.println("ITEM");
             int size = map.getEnemies().size()/2;
 
             for (int i = 0; i < size; i++) {
                 map.getTiles()[map.getEnemies().get(i).getX()][map.getEnemies().get(i).getY()] = Map.WALKABLE_TILE;
                 map.getEnemies().remove(i);
-                //System.out.println("REMOVE" + i);
             }
             map.getPlayer().setUseItem(false);
         }
