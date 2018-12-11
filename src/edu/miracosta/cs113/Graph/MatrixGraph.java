@@ -1,11 +1,17 @@
+/*
+ *  MatrixGraph.java
+ *
+ *  The purposes of this class is to make a matrix representation of a graph.
+ *  On top of this there is an inner class iterator that shows all the adjancecies
+ *  for a specific vertex.
+ *
+ *
+ *  Author:  Victor Vazquez / Ryan Tucker / Carsten Singleton
+ *  Version: 1.0
+ */
 package edu.miracosta.cs113.Graph;
-
 import edu.miracosta.cs113.Map;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Stack;
+import java.util.*;
 
 public class MatrixGraph extends AbstractGraph {
 
@@ -145,60 +151,51 @@ public class MatrixGraph extends AbstractGraph {
 
     @Override
     public Iterator<Edge> edgeIterator(int source) {
-        return new MatrixIterator();
+        return new MatrixIterator(source);
     }
 
     /**
-     * Inner class Iterator
+     * Inner class Iterator which checks adjacencies of a single vertex
      *
      */
-    private class MatrixIterator implements Iterator{
+    private class MatrixIterator implements Iterator<Edge>,Iterable{
 
-        private int rows;
-        private int col;
-        public MatrixIterator(){
-            rows = 0;
-            col = 0;
-            ArrayList<Integer> itr = new ArrayList<>();
+
+        private int vertex;
+        private int lastReturned;
+        public MatrixIterator(int source){
+            vertex = source;
+            lastReturned = 0;
 
         }
         @Override
         public boolean hasNext() {
 
-            if(isDirected())
+            while (lastReturned < edges.length)
             {
-                for (int i = rows;i<edges.length;i++)
+                if(edges[vertex][lastReturned] != Double.POSITIVE_INFINITY)
                 {
-                    for(int j = col; i < edges.length;j++)
-                    {
-                        if(edges[i][j] != Double.POSITIVE_INFINITY)
-                        {
-                            return true;
-                        }
-                    }
+                    return true;
                 }
-                return false;
+                lastReturned++;
             }
-            else // undirected
-            {
-                for (int i = rows;i<edges.length;i++)
-                {
-                    for(int j = 0; i < i;j++)
-                    {
-                        if(edges[i][j] != Double.POSITIVE_INFINITY)
-                        {
-                            return true;
-                        }
-                    }
-                }
-                return false;
-            }
+            return false;
 
         }
 
         @Override
-        public Object next() {
-            return null;
+        public Edge next() {
+            if(!hasNext())
+            {
+                throw new NoSuchElementException();
+            }
+            lastReturned++;
+            return new Edge(vertex,lastReturned-1);
+        }
+
+        @Override
+        public Iterator<Edge> iterator() {
+            return this;
         }
     }
 
@@ -260,7 +257,7 @@ public class MatrixGraph extends AbstractGraph {
     }
 
     /**
-     * Obtains a single path by combing dijstras method and getSingleShortestPath method
+     * Obtains a single path by combing dijkstra's method and getSingleShortestPath method
      * To make it easier for programmer to code
      * @param start         Stating vertex
      * @param destination   Destination
@@ -274,7 +271,7 @@ public class MatrixGraph extends AbstractGraph {
         return getSingleShortestPath(start,destination,predecesors);
     }
     /**
-     * This runs dijkstras algorithm
+     * This runs dijkstra's algorithm
      * @param start     Staring vertex where all paths will be based from
      * @param pred      An array that stores int references to a vertex from another
      * @param dist      The Total distance from a vertex to the starting vertex

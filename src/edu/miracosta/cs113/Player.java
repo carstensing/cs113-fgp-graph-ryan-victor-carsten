@@ -1,3 +1,12 @@
+/*
+ *  Player.java
+ *
+ *  This class is the representation of the player. It controls where the player object which is a green tile
+ *  is located in the map. It also has the logic for how the player moves(up,down,left and right) in the map.
+ *
+ *  Author:  Victor Vazquez / Ryan Tucker / Carsten Singleton
+ *  Version: 1.0
+ */
 package edu.miracosta.cs113;
 
 public class Player extends Entity {

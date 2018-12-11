@@ -1,3 +1,12 @@
+/*
+ *  Enemy.java
+ *
+ *  The class has logic for an enemy object movement and location in the map.
+ *  For the movement, Enemy Objects use Dijkstra's from their position to the Player's position.
+ *
+ *  Author:  Victor Vazquez / Ryan Tucker / Carsten Singleton
+ *  Version: 1.0
+ */
 package edu.miracosta.cs113;
 
 public class Enemy extends Entity {

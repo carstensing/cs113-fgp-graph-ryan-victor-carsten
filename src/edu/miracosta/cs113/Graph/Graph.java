@@ -1,3 +1,12 @@
+/*
+ *  Graph.java
+ *
+ *  The purposes of this interface is to make the neccesary methods to make
+ *  any type of graph, such as making a graph directed, inserting to a graph,etc.
+ *
+ *  Author:  Victor Vazquez / Ryan Tucker / Carsten Singleton
+ *  Version: 1.0
+ */
 package edu.miracosta.cs113.Graph;
 
 import java.util.Iterator;

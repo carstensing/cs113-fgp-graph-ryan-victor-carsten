@@ -1,5 +1,14 @@
+/*
+ *  AbstractGraph.java
+ *
+ *  This class implements the Graph interface but it is still to generic to make as a concrete class.
+ *  It adds more features to a generic graph such as number of vertices and whether a graph is directed or not.
+ *  Since this graph is still too generic it is labeled as abstract, to be inherited from.
+ *
+ *  Author:  Victor Vazquez / Ryan Tucker / Carsten Singleton
+ *  Version: 1.0
+ */
 package edu.miracosta.cs113.Graph;
-
 import java.util.Iterator;
 
 public abstract class AbstractGraph implements Graph {
