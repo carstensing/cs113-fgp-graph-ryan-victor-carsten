@@ -1,3 +1,12 @@
+/*
+ *  Game.java
+ *
+ *  View Class. Contain main game loop (FPS Based), Rendering Logic.
+ *  Also contains anonymous KeyListener for player movement.
+ *
+ *  Author:  Victor Vazquez / Ryan Tucker / Carsten Singleton
+ *  Version: 1.0
+ */
 package edu.miracosta.cs113;
 
 import javax.swing.*;
