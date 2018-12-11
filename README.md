@@ -42,4 +42,4 @@ With this game we are using dijkstra algorithm. The algorithm is used in the mov
 ![UML](doc/UML.jpg)
 
 ## Sequence Diagram (for driver):
-[insert image here]
+![Sequence Diagram](doc/Sequence_Diagram.jpg)
