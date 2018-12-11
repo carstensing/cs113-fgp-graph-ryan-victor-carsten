@@ -30,6 +30,10 @@ public class Game extends JFrame
         System.exit(0);
     }
 
+    /**
+    * Default Constructor.
+    * @param String title game title
+    */
     public Game(String title) {
         super();
         setTitle(title);
@@ -40,6 +44,9 @@ public class Game extends JFrame
         frameInit();
     }
 
+    /**
+    * Main game loop that constantly updates and draws game.
+    */
     public void run()
     {
         this.initialize();
@@ -103,6 +110,9 @@ public class Game extends JFrame
         }
     }
 
+    /**
+    * Initializes the setup for the game.
+    */
     public void initialize()
     {
         setSize(windowWidth,windowHeight);
@@ -141,6 +151,9 @@ public class Game extends JFrame
         setVisible(true);
     }
 
+    /**
+    * Updates the logic of the game.
+    */
     public void update()
     {
         if(addEnemy) {
@@ -175,6 +188,9 @@ public class Game extends JFrame
         }
     }
 
+    /**
+    * Draws the game to the JFrame.
+    */
     public void draw()
     {
         Graphics bbg = backBuffer.getGraphics();
