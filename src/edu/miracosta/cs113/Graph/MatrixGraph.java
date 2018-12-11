@@ -154,12 +154,46 @@ public class MatrixGraph extends AbstractGraph {
      */
     private class MatrixIterator implements Iterator{
 
+        private int rows;
+        private int col;
         public MatrixIterator(){
+            rows = 0;
+            col = 0;
+            ArrayList<Integer> itr = new ArrayList<>();
 
         }
         @Override
         public boolean hasNext() {
-            return false;
+
+            if(isDirected())
+            {
+                for (int i = rows;i<edges.length;i++)
+                {
+                    for(int j = col; i < edges.length;j++)
+                    {
+                        if(edges[i][j] != Double.POSITIVE_INFINITY)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+            else // undirected
+            {
+                for (int i = rows;i<edges.length;i++)
+                {
+                    for(int j = 0; i < i;j++)
+                    {
+                        if(edges[i][j] != Double.POSITIVE_INFINITY)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+
         }
 
         @Override

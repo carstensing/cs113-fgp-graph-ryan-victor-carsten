@@ -2,11 +2,9 @@ package edu.miracosta.cs113;
 
 import edu.miracosta.cs113.Graph.Edge;
 import edu.miracosta.cs113.Graph.MatrixGraph;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 public class GraphTest {
 

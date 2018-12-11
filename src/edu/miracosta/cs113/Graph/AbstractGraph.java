@@ -26,20 +26,12 @@ public abstract class AbstractGraph implements Graph {
         this.directed = directed;
     }
 
-    /**
-     * Accessor for directed
-     *
-     * @return true if directed, else false
-     */
+    @Override
     public boolean isDirected() {
         return directed;
     }
 
-    /**
-     * Accessor for number of vertices
-     *
-     * @return int numV
-     */
+    @Override
     public int getNumV() {
         return numV;
     }
