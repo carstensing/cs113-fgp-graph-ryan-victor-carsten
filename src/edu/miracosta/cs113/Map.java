@@ -1,3 +1,14 @@
+/*
+ *  Map.java
+ *
+ *  Contains a 2D Tile array which will be displayed to the user every frame.
+ *  Also has instance variables for the Player and Enemies belonging to this Map.
+ *  Constants are used for display and movement in Enemy and Player classes.
+ *  Also has a MatrixGraph which represents connections between Tiles.
+ *
+ *  Author:  Victor Vazquez / Ryan Tucker / Carsten Singleton
+ *  Version: 1.0
+ */
 package edu.miracosta.cs113;
 
 import edu.miracosta.cs113.Graph.MatrixGraph;
@@ -222,5 +233,28 @@ public class Map {
         int column = index % columns;
         int row = index / columns;
         return new int[]{row,column};
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < rows; i ++) {
+            for (int j = 0; j < columns; j ++) {
+                if (tiles[i][j] == WALKABLE_TILE) {
+                    sb.append(0);
+                } else if (tiles[i][j] == BARRIER_TILE) {
+                    sb.append(1);
+                } else if (tiles[i][j] == PLAYER_TILE) {
+                    sb.append(2);
+                } else if (tiles[i][j] == ENEMY_TILE) {
+                    sb.append(3);
+                } else if (tiles[i][j] == ITEM_TILE) {
+                    sb.append(4);
+                }
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
     }
 }

@@ -1,5 +1,12 @@
+/*
+ *  Entity.java
+ *
+ *  Abstract class for Enemies and Players to extend. Has basic x and y positions.
+ *
+ *  Author:  Victor Vazquez / Ryan Tucker / Carsten Singleton
+ *  Version: 1.0
+ */
 package edu.miracosta.cs113;
-
 
 public abstract class Entity {
 

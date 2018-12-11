@@ -50,7 +50,7 @@ public class Enemy extends Entity {
     }
 
     /**
-     * Error checks for out of bounds. Can only move onto a walkable tile.
+     * Error checks for out of bounds. Can only move onto a walkable tile or a Player tile.
      *
      * @param dx Change in X position
      * @param dy Change in Y position

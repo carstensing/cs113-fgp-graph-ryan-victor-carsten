@@ -1,3 +1,12 @@
+/*
+ *  Tile.java
+ *
+ *  Basic shape to be contained in 2D Tile Array within Map class.
+ *  Width and Height are in terms of pixels.
+ *
+ *  Author:  Victor Vazquez / Ryan Tucker / Carsten Singleton
+ *  Version: 1.0
+ */
 package edu.miracosta.cs113;
 
 import java.awt.*;

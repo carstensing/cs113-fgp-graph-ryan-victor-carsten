@@ -365,4 +365,40 @@ public class MatrixGraph extends AbstractGraph {
         }
         return array;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < edges.length;i++)
+        {
+            for(int j = 0; j < edges.length; j++)
+            {
+                if(edges[i][j] == Double.POSITIVE_INFINITY)
+                {
+                    sb.append("X\t");
+                }
+                else
+                {
+                    sb.append((int)edges[i][j] + "\t");
+                }
+
+            }
+            sb.append('\n');
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MatrixGraph that = (MatrixGraph) o;
+        return Arrays.equals(edges, that.edges);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(edges);
+    }
 }
