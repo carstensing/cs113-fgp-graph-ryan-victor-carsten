@@ -36,10 +36,12 @@ to survive the longest without being touched by the enemies. As soon as the play
 With this game we are using dijkstra algorithm. The algorithm is used in the movement of the enemy for pathfinding.
 
 ## Screenshot(s):
-[insert image(s) here to show main use/screen of program]
+![Image1](doc/Game_png1.PNG)
+![Image2](doc/Game_png3.PNG)
+![Image3](doc/Game_png2.JPG)
 
 ## UML Class+Relationship Diagram:
 ![UML](doc/UML.jpg)
 
 ## Sequence Diagram (for driver):
-[insert image here]
+![Sequence Diagram](doc/Sequence_Diagram.jpg)
