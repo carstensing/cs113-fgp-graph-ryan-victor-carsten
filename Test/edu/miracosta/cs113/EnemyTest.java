@@ -11,7 +11,7 @@ public class EnemyTest {
         map = new Map("TestMap.txt");
         Enemy enemy = map.getEnemies().get(0);
         enemy.move(0,-1,map);
-        Assert.assertTrue(enemy.getX() == 1 && enemy.getY() == 0);
+        Assert.assertTrue(enemy.getX() == 1 && enemy.getY() == 0 && map.getTile(1,0) == Map.ENEMY_TILE);
     }
 
     @Test
@@ -19,7 +19,7 @@ public class EnemyTest {
         map = new Map("TestMap.txt");
         Enemy enemy = map.getEnemies().get(0);
         enemy.move(-1,0,map);
-        Assert.assertTrue(enemy.getX() == 1 && enemy.getY() == 1);
+        Assert.assertTrue(enemy.getX() == 1 && enemy.getY() == 1 && map.getTile(1,1) == Map.ENEMY_TILE);
     }
 
     @Test
@@ -27,6 +27,6 @@ public class EnemyTest {
         map = new Map("TestMap.txt");
         Enemy enemy = map.getEnemies().get(0);
         enemy.moveTowardsPlayer(map);
-        Assert.assertTrue(enemy.getX() == 1 && enemy.getY() == 0);
+        Assert.assertTrue(enemy.getX() == 1 && enemy.getY() == 0 && map.getTile(1,0) == Map.ENEMY_TILE);
     }
 }

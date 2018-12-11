@@ -158,6 +158,18 @@ public class GraphTest {
         assertFalse(itr.hasNext());
     }
 
+    @Test
+    public void testGraphFromMapConstructor() {
+        Map map = new Map("TestMap.txt");
+        graph = map.getGraph();
+        System.out.println(graph);
+        Assert.assertEquals("X\tX\t1\tX\t\n" +
+                "X\tX\tX\tX\t\n" +
+                "1\tX\tX\t1\t\n" +
+                "X\tX\t1\tX\t\n", graph.toString());
+    }
+
+
 
 
 }

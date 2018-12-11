@@ -11,7 +11,7 @@ public class PlayerTest {
         Player player = map.getPlayer();
 
         player.move(-1,0,map);
-        Assert.assertTrue(player.getX() == 0 && player.getY() == 0);
+        Assert.assertTrue(player.getX() == 0 && player.getY() == 0 && map.getTile(0,0) == Map.PLAYER_TILE);
     }
 
     @Test
@@ -22,7 +22,7 @@ public class PlayerTest {
         player.move(-1,0,map);
         player.move(0,1,map);
 
-        Assert.assertTrue(player.getX() == 0 && player.getY() == 0);
+        Assert.assertTrue(player.getX() == 0 && player.getY() == 0 && map.getTile(0,0) == Map.PLAYER_TILE);
     }
 
 }
