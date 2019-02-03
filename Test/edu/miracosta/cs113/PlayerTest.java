@@ -24,5 +24,4 @@ public class PlayerTest {
 
         Assert.assertTrue(player.getX() == 0 && player.getY() == 0 && map.getTile(0,0) == Map.PLAYER_TILE);
     }
-
 }
